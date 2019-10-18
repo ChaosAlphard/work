@@ -32,7 +32,7 @@ namespace SerialPortDemo {
         // 数据位
         port.DataBits = Convert.ToInt32(dataBit.Text);
         // 停止位
-        //port.StopBits = Convert.ToInt32(stopBit.Text);
+        port.StopBits = StopBits.One;
         // 无超时时间
         port.ReadTimeout = -1;
         // 无协议
