@@ -6,17 +6,32 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UDPClient.Client {
-    class Client {
-        private static IPEndPoint server;
-        private static UdpClient localClient;
+namespace UDPClient {
+  class Client {
 
-        public Client connectServer(String ip, Int32 port) {
-            // 服务端IP
-            server = new IPEndPoint(IPAddress.Parse(ip), port);
-            // 绑定本地ip
-            localClient = new UdpClient(8081);
-            return this;
-        }
+    UdpClient sendClient;
+
+    public Client initSendClient(Int32 port) {
+      sendClient = new UdpClient(port);
+      return this;
     }
+    public Client sendMsg(string msg, String ip, Int32 port) {
+      
+      var bytes = Encoding.UTF8.GetBytes(msg);
+
+      var remoteIP = IPAddress.Parse(ip);
+      var ep = new IPEndPoint(remoteIP, port);
+
+      try {
+        sendClient.Send(bytes, bytes.Length, ep);
+        //
+      } catch(Exception e) {
+        Console.WriteLine(e);
+        return this;
+      }
+
+      return this;
+    }
+
+  }
 }
