@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "UDPDemo"
+		},
+		{
+			"path": "SerialPortDemo"
 		}
 	],
 	"settings": {}
