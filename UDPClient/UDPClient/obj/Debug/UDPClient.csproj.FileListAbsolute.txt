@@ -1,0 +1,1 @@
+D:\VSProject\UDPClient\UDPClient\bin\Debug\UDPClient.exe.config

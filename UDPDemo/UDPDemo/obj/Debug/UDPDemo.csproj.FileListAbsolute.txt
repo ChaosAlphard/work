@@ -1,0 +1,6 @@
+D:\VSProject\UDPDemo\UDPDemo\bin\Debug\UDPDemo.exe.config
+D:\VSProject\UDPDemo\UDPDemo\bin\Debug\UDPDemo.exe
+D:\VSProject\UDPDemo\UDPDemo\bin\Debug\UDPDemo.pdb
+D:\VSProject\UDPDemo\UDPDemo\obj\Debug\UDPDemo.csprojResolveAssemblyReference.cache
+D:\VSProject\UDPDemo\UDPDemo\obj\Debug\UDPDemo.exe
+D:\VSProject\UDPDemo\UDPDemo\obj\Debug\UDPDemo.pdb
