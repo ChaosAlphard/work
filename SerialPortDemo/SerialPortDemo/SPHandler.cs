@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.IO.Ports;
+using System.Windows.Forms;
 using Microsoft.Win32;
 
 namespace SerialPortDemo {
@@ -32,6 +34,63 @@ namespace SerialPortDemo {
         }
       }
       return true;
+    }
+
+    public static bool openSPort(
+      SerialPort port, string name,
+      int baudRate, int dataBits,
+      StopBits stopBits, Parity parity,
+      Handshake handshake, int timeout
+    ) {
+      port.PortName = name;
+      port.BaudRate = baudRate;
+      port.DataBits = dataBits;
+      port.StopBits = stopBits;
+      port.ReadTimeout = -1;
+      port.Parity = parity;
+      port.Handshake = handshake;
+
+      Console.WriteLine("===========================");
+      Console.WriteLine(port.PortName);
+      Console.WriteLine(port.BaudRate);
+      Console.WriteLine(port.DataBits);
+      Console.WriteLine(port.StopBits);
+      Console.WriteLine(port.ReadTimeout);
+      Console.WriteLine(port.Parity);
+      Console.WriteLine(port.Handshake);
+
+      try {
+        port.Open();
+        MessageBox.Show("打开成功");
+        return true;
+      } catch {
+        MessageBox.Show("打开失败");
+        return false;
+      }
+    }
+
+    public static bool closeSPort(SerialPort port) {
+      try {
+        port.Close();
+        MessageBox.Show("关闭成功");
+        return true;
+      } catch {
+        MessageBox.Show("关闭失败");
+        return false;
+      }
+    }
+
+    public static StopBits getStopBits(string stopStr) {
+      switch(stopStr) {
+        case "1":
+          return StopBits.One;
+        case "1.5":
+          return StopBits.OnePointFive;
+        case "2":
+          return StopBits.Two;
+        default:
+          return StopBits.None;
+      }
     }
 
   }// class

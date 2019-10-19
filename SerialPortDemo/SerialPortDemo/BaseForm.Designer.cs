@@ -28,8 +28,8 @@
       this._rec_string = new System.Windows.Forms.RadioButton();
       this._rec_hex = new System.Windows.Forms.RadioButton();
       this.receiveArea = new System.Windows.Forms.TextBox();
-      this.sendInput = new System.Windows.Forms.TextBox();
-      this.dataSend = new System.Windows.Forms.Button();
+      this._send_input = new System.Windows.Forms.TextBox();
+      this._send_submit = new System.Windows.Forms.Button();
       this._openPort = new System.Windows.Forms.Button();
       this.botLab = new System.Windows.Forms.Label();
       this._com = new System.Windows.Forms.GroupBox();
@@ -109,25 +109,25 @@
       this.receiveArea.Size = new System.Drawing.Size(507, 215);
       this.receiveArea.TabIndex = 0;
       // 
-      // sendInput
+      // _send_input
       // 
-      this.sendInput.Enabled = false;
-      this.sendInput.Location = new System.Drawing.Point(6, 20);
-      this.sendInput.Multiline = true;
-      this.sendInput.Name = "sendInput";
-      this.sendInput.Size = new System.Drawing.Size(508, 206);
-      this.sendInput.TabIndex = 5;
+      this._send_input.Enabled = false;
+      this._send_input.Location = new System.Drawing.Point(6, 20);
+      this._send_input.Multiline = true;
+      this._send_input.Name = "_send_input";
+      this._send_input.Size = new System.Drawing.Size(508, 206);
+      this._send_input.TabIndex = 5;
       // 
-      // dataSend
+      // _send_submit
       // 
-      this.dataSend.Enabled = false;
-      this.dataSend.Location = new System.Drawing.Point(439, 232);
-      this.dataSend.Name = "dataSend";
-      this.dataSend.Size = new System.Drawing.Size(75, 23);
-      this.dataSend.TabIndex = 4;
-      this.dataSend.Text = "Send";
-      this.dataSend.UseVisualStyleBackColor = true;
-      this.dataSend.Click += new System.EventHandler(this.SubmitButtonClick);
+      this._send_submit.Enabled = false;
+      this._send_submit.Location = new System.Drawing.Point(439, 232);
+      this._send_submit.Name = "_send_submit";
+      this._send_submit.Size = new System.Drawing.Size(75, 23);
+      this._send_submit.TabIndex = 4;
+      this._send_submit.Text = "Send";
+      this._send_submit.UseVisualStyleBackColor = true;
+      this._send_submit.Click += new System.EventHandler(this.sendData);
       // 
       // _openPort
       // 
@@ -310,8 +310,8 @@
       // 
       this._send.Controls.Add(this._send_string);
       this._send.Controls.Add(this._send_hex);
-      this._send.Controls.Add(this.sendInput);
-      this._send.Controls.Add(this.dataSend);
+      this._send.Controls.Add(this._send_input);
+      this._send.Controls.Add(this._send_submit);
       this._send.Location = new System.Drawing.Point(218, 12);
       this._send.Name = "_send";
       this._send.Size = new System.Drawing.Size(520, 261);
@@ -328,6 +328,7 @@
       this._send_string.Name = "_send_string";
       this._send_string.Size = new System.Drawing.Size(59, 16);
       this._send_string.TabIndex = 7;
+      this._send_string.TabStop = true;
       this._send_string.Text = "String";
       this._send_string.UseVisualStyleBackColor = true;
       // 
@@ -368,7 +369,7 @@
     private System.Windows.Forms.TextBox receiveArea;
     private System.Windows.Forms.RadioButton _rec_string;
     private System.Windows.Forms.RadioButton _rec_hex;
-    private System.Windows.Forms.TextBox sendInput;
+    private System.Windows.Forms.TextBox _send_input;
     private System.Windows.Forms.Button dataSend;
     private System.Windows.Forms.Button _openPort;
     private System.Windows.Forms.Label botLab;
@@ -389,6 +390,7 @@
     private System.Windows.Forms.RadioButton _send_string;
     private System.Windows.Forms.RadioButton _send_hex;
     private System.Windows.Forms.Button F5;
+    private System.Windows.Forms.Button _send_submit;
   }
 }
 
