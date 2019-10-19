@@ -23,12 +23,12 @@
     /// 使用代码编辑器修改此方法的内容。
     /// </summary>
     private void InitializeComponent() {
-      this.DataRecive = new System.Windows.Forms.GroupBox();
+      this.DataReceive = new System.Windows.Forms.GroupBox();
       this.Unicode = new System.Windows.Forms.RadioButton();
       this.UTF8 = new System.Windows.Forms.RadioButton();
       this.Hex = new System.Windows.Forms.RadioButton();
-      this.textBox2 = new System.Windows.Forms.TextBox();
-      this.textBox1 = new System.Windows.Forms.TextBox();
+      this.receiveArea = new System.Windows.Forms.TextBox();
+      this.sendInput = new System.Windows.Forms.TextBox();
       this.Submit = new System.Windows.Forms.Button();
       this.Open = new System.Windows.Forms.Button();
       this.botLabel = new System.Windows.Forms.Label();
@@ -40,22 +40,22 @@
       this.sportLabel = new System.Windows.Forms.Label();
       this.sPortComboBox = new System.Windows.Forms.ComboBox();
       this.bot = new System.Windows.Forms.ComboBox();
-      this.DataRecive.SuspendLayout();
+      this.DataReceive.SuspendLayout();
       this.DataSend.SuspendLayout();
       this.SuspendLayout();
       // 
-      // DataRecive
+      // DataReceive
       // 
-      this.DataRecive.Controls.Add(this.Unicode);
-      this.DataRecive.Controls.Add(this.UTF8);
-      this.DataRecive.Controls.Add(this.Hex);
-      this.DataRecive.Controls.Add(this.textBox2);
-      this.DataRecive.Location = new System.Drawing.Point(12, 12);
-      this.DataRecive.Name = "DataRecive";
-      this.DataRecive.Size = new System.Drawing.Size(400, 260);
-      this.DataRecive.TabIndex = 5;
-      this.DataRecive.TabStop = false;
-      this.DataRecive.Text = "DataRecive";
+      this.DataReceive.Controls.Add(this.Unicode);
+      this.DataReceive.Controls.Add(this.UTF8);
+      this.DataReceive.Controls.Add(this.Hex);
+      this.DataReceive.Controls.Add(this.receiveArea);
+      this.DataReceive.Location = new System.Drawing.Point(12, 12);
+      this.DataReceive.Name = "DataReceive";
+      this.DataReceive.Size = new System.Drawing.Size(400, 260);
+      this.DataReceive.TabIndex = 5;
+      this.DataReceive.TabStop = false;
+      this.DataReceive.Text = "DataReceive";
       // 
       // Unicode
       // 
@@ -92,21 +92,22 @@
       this.Hex.Text = "Hex";
       this.Hex.UseVisualStyleBackColor = true;
       // 
-      // textBox2
+      // receiveArea
       // 
-      this.textBox2.Location = new System.Drawing.Point(7, 20);
-      this.textBox2.Multiline = true;
-      this.textBox2.Name = "textBox2";
-      this.textBox2.ReadOnly = true;
-      this.textBox2.Size = new System.Drawing.Size(387, 212);
-      this.textBox2.TabIndex = 0;
+      this.receiveArea.Location = new System.Drawing.Point(7, 20);
+      this.receiveArea.Multiline = true;
+      this.receiveArea.Name = "receiveArea";
+      this.receiveArea.ReadOnly = true;
+      this.receiveArea.Size = new System.Drawing.Size(387, 212);
+      this.receiveArea.TabIndex = 0;
       // 
-      // textBox1
+      // sendInput
       // 
-      this.textBox1.Location = new System.Drawing.Point(22, 36);
-      this.textBox1.Name = "textBox1";
-      this.textBox1.Size = new System.Drawing.Size(153, 21);
-      this.textBox1.TabIndex = 5;
+      this.sendInput.Enabled = false;
+      this.sendInput.Location = new System.Drawing.Point(22, 36);
+      this.sendInput.Name = "sendInput";
+      this.sendInput.Size = new System.Drawing.Size(153, 21);
+      this.sendInput.TabIndex = 5;
       // 
       // Submit
       // 
@@ -150,7 +151,7 @@
       this.DataSend.Controls.Add(this.botLabel);
       this.DataSend.Controls.Add(this.Open);
       this.DataSend.Controls.Add(this.Submit);
-      this.DataSend.Controls.Add(this.textBox1);
+      this.DataSend.Controls.Add(this.sendInput);
       this.DataSend.Location = new System.Drawing.Point(422, 12);
       this.DataSend.Name = "DataSend";
       this.DataSend.Size = new System.Drawing.Size(270, 260);
@@ -242,13 +243,13 @@
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(704, 442);
-      this.Controls.Add(this.DataRecive);
+      this.Controls.Add(this.DataReceive);
       this.Controls.Add(this.DataSend);
       this.Name = "BaseForm";
       this.Text = "Title";
       this.Load += new System.EventHandler(this.onLoad);
-      this.DataRecive.ResumeLayout(false);
-      this.DataRecive.PerformLayout();
+      this.DataReceive.ResumeLayout(false);
+      this.DataReceive.PerformLayout();
       this.DataSend.ResumeLayout(false);
       this.DataSend.PerformLayout();
       this.ResumeLayout(false);
@@ -256,12 +257,12 @@
     }
 
     #endregion
-    private System.Windows.Forms.GroupBox DataRecive;
-    private System.Windows.Forms.TextBox textBox2;
+    private System.Windows.Forms.GroupBox DataReceive;
+    private System.Windows.Forms.TextBox receiveArea;
     private System.Windows.Forms.RadioButton Unicode;
     private System.Windows.Forms.RadioButton UTF8;
     private System.Windows.Forms.RadioButton Hex;
-    private System.Windows.Forms.TextBox textBox1;
+    private System.Windows.Forms.TextBox sendInput;
     private System.Windows.Forms.Button Submit;
     private System.Windows.Forms.Button Open;
     private System.Windows.Forms.Label botLabel;

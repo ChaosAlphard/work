@@ -43,7 +43,7 @@ namespace SerialPortDemo {
         }
         if(sPortComboBox.Items.Count > 0) {
           // 选择索引 设置为1
-          sPortComboBox.SelectedIndex = 1;
+          sPortComboBox.SelectedIndex = 0;
         }
 
       }
@@ -64,6 +64,12 @@ namespace SerialPortDemo {
         port.ReadTimeout = -1;
         // 无协议
         port.Handshake = Handshake.None;
+        Console.WriteLine(port.PortName);
+        Console.WriteLine(port.BaudRate);
+        Console.WriteLine(port.DataBits);
+        Console.WriteLine(port.StopBits);
+        Console.WriteLine(port.ReadTimeout);
+        Console.WriteLine(port.Handshake);
 
         try {
           port.Open();
@@ -73,7 +79,7 @@ namespace SerialPortDemo {
                       = dataBox.Enabled
                       = stopBox.Enabled
                       = false;
-          Submit.Enabled = true;
+          sendInput.Enabled = Submit.Enabled = true;
           port.DataReceived += this.onDataReceived();
         } catch {
           MessageBox.Show("打开失败");
@@ -87,7 +93,7 @@ namespace SerialPortDemo {
                       = dataBox.Enabled
                       = stopBox.Enabled
                       = true;
-          Submit.Enabled = false;
+          sendInput.Enabled = Submit.Enabled = false;
           port.DataReceived -= this.onDataReceived();
         } catch {
           MessageBox.Show("关闭失败");
@@ -95,14 +101,26 @@ namespace SerialPortDemo {
       }
     }
 
+    private void temp(object sender, EventArgs e) {
+      Console.WriteLine("data");
+      var sp = (SerialPort)sender;
+      string data = sp.ReadExisting();
+      Console.WriteLine($"Data: ${data}");
+    }
+
     // 发送数据
     private void SubmitButtonClick(object sender, EventArgs e) {
-      Console.WriteLine($"{this.textBox1.Text}===================================");
-      Console.WriteLine(sPortComboBox.Text);
       if (!port.IsOpen) {
-        port.PortName = sPortComboBox.Text;
-        port.BaudRate = Convert.ToInt32(bot.Text);
+        MessageBox.Show("ERR:\n串口没有打开");
+        return;
       }
+      var dataToSend = sendInput.Text.Trim();
+      if (dataToSend == "") {
+        MessageBox.Show("INFO:\n数据不能为空");
+        return;
+      }
+      Console.WriteLine($"send: {dataToSend}");
+      port.Write(dataToSend);
     }
 
     private StopBits getStopBits(string stopStr) {
@@ -121,17 +139,21 @@ namespace SerialPortDemo {
     private SerialDataReceivedEventHandler onDataReceived() {
       return new SerialDataReceivedEventHandler(
         (sender, e) => {
-          try {
-            var strbud = new StringBuilder();
-            while(port.BytesToRead > 0) {
-              var sch = port.ReadByte().ToString();
-              Console.WriteLine(sch);
-              strbud.Append(port.ReadByte());
-            }
-            Console.WriteLine(strbud.ToString());
-          } catch(Exception err) {
-            MessageBox.Show($"在读取时出现错误:\n{err}");
-          }
+          Console.WriteLine("data");
+          var sp = (SerialPort)sender;
+          string data = sp.ReadExisting();
+          receiveArea.Text = $"Data: ${data}";
+          // try {
+          //   var strbud = new StringBuilder();
+          //   while(port.BytesToRead > 0) {
+          //     var sch = port.ReadByte().ToString();
+          //     Console.WriteLine(sch);
+          //     strbud.Append(port.ReadByte());
+          //   }
+          //   Console.WriteLine(strbud.ToString());
+          // } catch(Exception err) {
+          //   MessageBox.Show($"在读取时出现错误:\n{err}");
+          // }
         }
       );
     }
