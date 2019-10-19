@@ -1,13 +1,5 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SerialPortDemo {
@@ -16,7 +8,7 @@ namespace SerialPortDemo {
     // 串口对象
     private SerialPort port = new SerialPort();
     // msg
-    private StringBuilder sb = new StringBuilder();
+    // private StringBuilder sb = new StringBuilder();
     
     // bool isOpen, // 开启标识
     //   isSetProperty, // 属性设置
@@ -26,43 +18,25 @@ namespace SerialPortDemo {
 
     // 主窗体加载
     public void onLoad(object sender, EventArgs e) {
-      // 扫描已存在的串口
-      RegistryKey keyCom = Registry
-        .LocalMachine
-        .OpenSubKey("Hardware\\DeviceMap\\SerialComm");
-
-      if(keyCom != null) {
-        string[] subKeys = keyCom.GetValueNames();
-        // 清除串口
-        sPortComboBox.Items.Clear();
-        foreach(string sName in subKeys) {
-          // 获取串口名
-          string value = keyCom.GetValue(sName)?.ToString() ?? "Fail";
-          // 添加串口
-          sPortComboBox.Items.Add(value);
-        }
-        if(sPortComboBox.Items.Count > 0) {
-          // 选择索引 设置为1
-          sPortComboBox.SelectedIndex = 0;
-        }
-
-      }
+      SPHandler.updateSerialPortList(_comCbx);
     }
 
     // 打开串口
     private void OpenSPort(object sender, EventArgs e) {
       if (!port.IsOpen) {
         // 串口名
-        port.PortName = sPortComboBox.Text.Trim();
+        port.PortName = _comCbx.Text.Trim();
         // 波特率
-        port.BaudRate = Convert.ToInt32(bot.Text.Trim());
+        port.BaudRate = Convert.ToInt32(_botCbx.Text.Trim());
         // 数据位
-        port.DataBits = Convert.ToInt32(dataBox.Text.Trim());
+        port.DataBits = Convert.ToInt32(_dataCbx.Text.Trim());
         // 停止位
-        port.StopBits = this.getStopBits(stopBox.Text.Trim());
+        port.StopBits = this.getStopBits(_stopCbx.Text.Trim());
         // 无超时时间
         port.ReadTimeout = -1;
-        // 无协议
+        // 奇偶效验
+        port.Parity = Parity.Even;
+        // 协议
         port.Handshake = Handshake.None;
         Console.WriteLine(port.PortName);
         Console.WriteLine(port.BaudRate);
@@ -73,13 +47,13 @@ namespace SerialPortDemo {
 
         try {
           port.Open();
-          Open.Text = "关闭串口";
+          _openPort.Text = "关闭串口";
           MessageBox.Show("打开成功");
-          bot.Enabled = sPortComboBox.Enabled
-                      = dataBox.Enabled
-                      = stopBox.Enabled
+          _botCbx.Enabled = _comCbx.Enabled
+                      = _dataCbx.Enabled
+                      = _stopCbx.Enabled
                       = false;
-          sendInput.Enabled = Submit.Enabled = true;
+          sendInput.Enabled = dataSend.Enabled = true;
           port.DataReceived += this.onDataReceived();
         } catch {
           MessageBox.Show("打开失败");
@@ -87,13 +61,13 @@ namespace SerialPortDemo {
       } else {
         try {
           port.Close();
-          Open.Text = "打开串口";
+          _openPort.Text = "打开串口";
           MessageBox.Show("关闭成功");
-          bot.Enabled = sPortComboBox.Enabled
-                      = dataBox.Enabled
-                      = stopBox.Enabled
+          _botCbx.Enabled = _comCbx.Enabled
+                      = _dataCbx.Enabled
+                      = _stopCbx.Enabled
                       = true;
-          sendInput.Enabled = Submit.Enabled = false;
+          sendInput.Enabled = dataSend.Enabled = false;
           port.DataReceived -= this.onDataReceived();
         } catch {
           MessageBox.Show("关闭失败");
@@ -162,14 +136,8 @@ namespace SerialPortDemo {
       InitializeComponent();
     }
 
-    private void formLoad(object sender, EventArgs e) {
-      this.MaximizeBox = false;
-      this.MaximumSize = this.Size;
-      this.MinimumSize = this.Size;
-
-      for(int i=0; i<10; i++) {
-        // cbxComPort.Items.Add($"COM{i+1}({i})");
-      }
+    private void onSPUpdate(object sender, EventArgs e) {
+        SPHandler.updateSerialPortList()
     }
-  }
+  }// class
 }

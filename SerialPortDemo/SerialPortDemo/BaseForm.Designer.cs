@@ -23,74 +23,82 @@
     /// 使用代码编辑器修改此方法的内容。
     /// </summary>
     private void InitializeComponent() {
-      this.DataReceive = new System.Windows.Forms.GroupBox();
-      this.Unicode = new System.Windows.Forms.RadioButton();
-      this.UTF8 = new System.Windows.Forms.RadioButton();
-      this.Hex = new System.Windows.Forms.RadioButton();
+      this._receive = new System.Windows.Forms.GroupBox();
+      this.clearRec = new System.Windows.Forms.Button();
+      this._rec_string = new System.Windows.Forms.RadioButton();
+      this._rec_hex = new System.Windows.Forms.RadioButton();
       this.receiveArea = new System.Windows.Forms.TextBox();
       this.sendInput = new System.Windows.Forms.TextBox();
-      this.Submit = new System.Windows.Forms.Button();
-      this.Open = new System.Windows.Forms.Button();
-      this.botLabel = new System.Windows.Forms.Label();
-      this.DataSend = new System.Windows.Forms.GroupBox();
-      this.stopBit = new System.Windows.Forms.Label();
-      this.stopBox = new System.Windows.Forms.ComboBox();
-      this.dataBit = new System.Windows.Forms.Label();
-      this.dataBox = new System.Windows.Forms.ComboBox();
-      this.sportLabel = new System.Windows.Forms.Label();
-      this.sPortComboBox = new System.Windows.Forms.ComboBox();
-      this.bot = new System.Windows.Forms.ComboBox();
-      this.DataReceive.SuspendLayout();
-      this.DataSend.SuspendLayout();
+      this.dataSend = new System.Windows.Forms.Button();
+      this._openPort = new System.Windows.Forms.Button();
+      this.botLab = new System.Windows.Forms.Label();
+      this._com = new System.Windows.Forms.GroupBox();
+      this.F5 = new System.Windows.Forms.Button();
+      this.handLab = new System.Windows.Forms.Label();
+      this._handCbx = new System.Windows.Forms.ComboBox();
+      this.parityLab = new System.Windows.Forms.Label();
+      this._parityCbx = new System.Windows.Forms.ComboBox();
+      this.stopBitLab = new System.Windows.Forms.Label();
+      this._stopCbx = new System.Windows.Forms.ComboBox();
+      this.dataBitLab = new System.Windows.Forms.Label();
+      this._dataCbx = new System.Windows.Forms.ComboBox();
+      this.comLab = new System.Windows.Forms.Label();
+      this._comCbx = new System.Windows.Forms.ComboBox();
+      this._botCbx = new System.Windows.Forms.ComboBox();
+      this._send = new System.Windows.Forms.GroupBox();
+      this._send_string = new System.Windows.Forms.RadioButton();
+      this._send_hex = new System.Windows.Forms.RadioButton();
+      this._receive.SuspendLayout();
+      this._com.SuspendLayout();
+      this._send.SuspendLayout();
       this.SuspendLayout();
       // 
-      // DataReceive
+      // _receive
       // 
-      this.DataReceive.Controls.Add(this.Unicode);
-      this.DataReceive.Controls.Add(this.UTF8);
-      this.DataReceive.Controls.Add(this.Hex);
-      this.DataReceive.Controls.Add(this.receiveArea);
-      this.DataReceive.Location = new System.Drawing.Point(12, 12);
-      this.DataReceive.Name = "DataReceive";
-      this.DataReceive.Size = new System.Drawing.Size(400, 260);
-      this.DataReceive.TabIndex = 5;
-      this.DataReceive.TabStop = false;
-      this.DataReceive.Text = "DataReceive";
+      this._receive.Controls.Add(this.clearRec);
+      this._receive.Controls.Add(this._rec_string);
+      this._receive.Controls.Add(this._rec_hex);
+      this._receive.Controls.Add(this.receiveArea);
+      this._receive.Location = new System.Drawing.Point(218, 279);
+      this._receive.Name = "_receive";
+      this._receive.Size = new System.Drawing.Size(520, 270);
+      this._receive.TabIndex = 5;
+      this._receive.TabStop = false;
+      this._receive.Text = "Receive";
       // 
-      // Unicode
+      // clearRec
       // 
-      this.Unicode.AutoSize = true;
-      this.Unicode.Cursor = System.Windows.Forms.Cursors.Hand;
-      this.Unicode.Location = new System.Drawing.Point(113, 238);
-      this.Unicode.Name = "Unicode";
-      this.Unicode.Size = new System.Drawing.Size(65, 16);
-      this.Unicode.TabIndex = 3;
-      this.Unicode.Text = "Unicode";
-      this.Unicode.UseVisualStyleBackColor = true;
+      this.clearRec.Enabled = false;
+      this.clearRec.Location = new System.Drawing.Point(439, 241);
+      this.clearRec.Name = "clearRec";
+      this.clearRec.Size = new System.Drawing.Size(75, 23);
+      this.clearRec.TabIndex = 6;
+      this.clearRec.Text = "Clear";
+      this.clearRec.UseVisualStyleBackColor = true;
       // 
-      // UTF8
+      // _rec_string
       // 
-      this.UTF8.AutoSize = true;
-      this.UTF8.Checked = true;
-      this.UTF8.Cursor = System.Windows.Forms.Cursors.Hand;
-      this.UTF8.Location = new System.Drawing.Point(54, 238);
-      this.UTF8.Name = "UTF8";
-      this.UTF8.Size = new System.Drawing.Size(53, 16);
-      this.UTF8.TabIndex = 2;
-      this.UTF8.TabStop = true;
-      this.UTF8.Text = "UTF-8";
-      this.UTF8.UseVisualStyleBackColor = true;
+      this._rec_string.AutoSize = true;
+      this._rec_string.Checked = true;
+      this._rec_string.Cursor = System.Windows.Forms.Cursors.Hand;
+      this._rec_string.Location = new System.Drawing.Point(374, 244);
+      this._rec_string.Name = "_rec_string";
+      this._rec_string.Size = new System.Drawing.Size(59, 16);
+      this._rec_string.TabIndex = 2;
+      this._rec_string.TabStop = true;
+      this._rec_string.Text = "String";
+      this._rec_string.UseVisualStyleBackColor = true;
       // 
-      // Hex
+      // _rec_hex
       // 
-      this.Hex.AutoSize = true;
-      this.Hex.Cursor = System.Windows.Forms.Cursors.Hand;
-      this.Hex.Location = new System.Drawing.Point(7, 238);
-      this.Hex.Name = "Hex";
-      this.Hex.Size = new System.Drawing.Size(41, 16);
-      this.Hex.TabIndex = 1;
-      this.Hex.Text = "Hex";
-      this.Hex.UseVisualStyleBackColor = true;
+      this._rec_hex.AutoSize = true;
+      this._rec_hex.Cursor = System.Windows.Forms.Cursors.Hand;
+      this._rec_hex.Location = new System.Drawing.Point(327, 244);
+      this._rec_hex.Name = "_rec_hex";
+      this._rec_hex.Size = new System.Drawing.Size(41, 16);
+      this._rec_hex.TabIndex = 1;
+      this._rec_hex.Text = "Hex";
+      this._rec_hex.UseVisualStyleBackColor = true;
       // 
       // receiveArea
       // 
@@ -98,182 +106,289 @@
       this.receiveArea.Multiline = true;
       this.receiveArea.Name = "receiveArea";
       this.receiveArea.ReadOnly = true;
-      this.receiveArea.Size = new System.Drawing.Size(387, 212);
+      this.receiveArea.Size = new System.Drawing.Size(507, 215);
       this.receiveArea.TabIndex = 0;
       // 
       // sendInput
       // 
       this.sendInput.Enabled = false;
-      this.sendInput.Location = new System.Drawing.Point(22, 36);
+      this.sendInput.Location = new System.Drawing.Point(6, 20);
+      this.sendInput.Multiline = true;
       this.sendInput.Name = "sendInput";
-      this.sendInput.Size = new System.Drawing.Size(153, 21);
+      this.sendInput.Size = new System.Drawing.Size(508, 206);
       this.sendInput.TabIndex = 5;
       // 
-      // Submit
+      // dataSend
       // 
-      this.Submit.Enabled = false;
-      this.Submit.Location = new System.Drawing.Point(181, 34);
-      this.Submit.Name = "Submit";
-      this.Submit.Size = new System.Drawing.Size(75, 23);
-      this.Submit.TabIndex = 4;
-      this.Submit.Text = "Submit";
-      this.Submit.UseVisualStyleBackColor = true;
-      this.Submit.Click += new System.EventHandler(this.SubmitButtonClick);
+      this.dataSend.Enabled = false;
+      this.dataSend.Location = new System.Drawing.Point(439, 232);
+      this.dataSend.Name = "dataSend";
+      this.dataSend.Size = new System.Drawing.Size(75, 23);
+      this.dataSend.TabIndex = 4;
+      this.dataSend.Text = "Send";
+      this.dataSend.UseVisualStyleBackColor = true;
+      this.dataSend.Click += new System.EventHandler(this.SubmitButtonClick);
       // 
-      // Open
+      // _openPort
       // 
-      this.Open.Location = new System.Drawing.Point(6, 230);
-      this.Open.Name = "Open";
-      this.Open.Size = new System.Drawing.Size(258, 24);
-      this.Open.TabIndex = 6;
-      this.Open.Text = "打开串口";
-      this.Open.UseVisualStyleBackColor = true;
-      this.Open.Click += new System.EventHandler(this.OpenSPort);
+      this._openPort.Location = new System.Drawing.Point(6, 206);
+      this._openPort.Name = "_openPort";
+      this._openPort.Size = new System.Drawing.Size(188, 24);
+      this._openPort.TabIndex = 6;
+      this._openPort.Text = "打开串口";
+      this._openPort.UseVisualStyleBackColor = true;
+      this._openPort.Click += new System.EventHandler(this.OpenSPort);
       // 
-      // botLabel
+      // botLab
       // 
-      this.botLabel.AutoSize = true;
-      this.botLabel.Location = new System.Drawing.Point(20, 66);
-      this.botLabel.Name = "botLabel";
-      this.botLabel.Size = new System.Drawing.Size(41, 12);
-      this.botLabel.TabIndex = 8;
-      this.botLabel.Text = "波特率";
+      this.botLab.AutoSize = true;
+      this.botLab.Location = new System.Drawing.Point(6, 49);
+      this.botLab.Name = "botLab";
+      this.botLab.Size = new System.Drawing.Size(41, 12);
+      this.botLab.TabIndex = 8;
+      this.botLab.Text = "波特率";
       // 
-      // DataSend
+      // _com
       // 
-      this.DataSend.Controls.Add(this.stopBit);
-      this.DataSend.Controls.Add(this.stopBox);
-      this.DataSend.Controls.Add(this.dataBit);
-      this.DataSend.Controls.Add(this.dataBox);
-      this.DataSend.Controls.Add(this.sportLabel);
-      this.DataSend.Controls.Add(this.sPortComboBox);
-      this.DataSend.Controls.Add(this.bot);
-      this.DataSend.Controls.Add(this.botLabel);
-      this.DataSend.Controls.Add(this.Open);
-      this.DataSend.Controls.Add(this.Submit);
-      this.DataSend.Controls.Add(this.sendInput);
-      this.DataSend.Location = new System.Drawing.Point(422, 12);
-      this.DataSend.Name = "DataSend";
-      this.DataSend.Size = new System.Drawing.Size(270, 260);
-      this.DataSend.TabIndex = 4;
-      this.DataSend.TabStop = false;
-      this.DataSend.Text = "DataSend";
+      this._com.Controls.Add(this.F5);
+      this._com.Controls.Add(this.handLab);
+      this._com.Controls.Add(this._handCbx);
+      this._com.Controls.Add(this.parityLab);
+      this._com.Controls.Add(this._parityCbx);
+      this._com.Controls.Add(this.stopBitLab);
+      this._com.Controls.Add(this._stopCbx);
+      this._com.Controls.Add(this.dataBitLab);
+      this._com.Controls.Add(this._dataCbx);
+      this._com.Controls.Add(this.comLab);
+      this._com.Controls.Add(this._comCbx);
+      this._com.Controls.Add(this._botCbx);
+      this._com.Controls.Add(this.botLab);
+      this._com.Controls.Add(this._openPort);
+      this._com.Location = new System.Drawing.Point(12, 12);
+      this._com.Name = "_com";
+      this._com.Size = new System.Drawing.Size(200, 537);
+      this._com.TabIndex = 4;
+      this._com.TabStop = false;
+      this._com.Text = "COM";
       // 
-      // stopBit
+      // F5
       // 
-      this.stopBit.AutoSize = true;
-      this.stopBit.Location = new System.Drawing.Point(20, 146);
-      this.stopBit.Name = "stopBit";
-      this.stopBit.Size = new System.Drawing.Size(41, 12);
-      this.stopBit.TabIndex = 17;
-      this.stopBit.Text = "停止位";
+      this.F5.Location = new System.Drawing.Point(6, 176);
+      this.F5.Name = "F5";
+      this.F5.Size = new System.Drawing.Size(188, 24);
+      this.F5.TabIndex = 22;
+      this.F5.Text = "刷新串口";
+      this.F5.UseVisualStyleBackColor = true;
+      this.F5.Click += new System.EventHandler(this.onSPUpdate);
       // 
-      // stopBox
+      // handLab
       // 
-      this.stopBox.FormattingEnabled = true;
-      this.stopBox.Items.AddRange(new object[] {
+      this.handLab.AutoSize = true;
+      this.handLab.Location = new System.Drawing.Point(6, 153);
+      this.handLab.Name = "handLab";
+      this.handLab.Size = new System.Drawing.Size(59, 12);
+      this.handLab.TabIndex = 21;
+      this.handLab.Text = "Handshake";
+      // 
+      // _handCbx
+      // 
+      this._handCbx.FormattingEnabled = true;
+      this._handCbx.Items.AddRange(new object[] {
             "0",
             "1",
             "1.5",
             "2"});
-      this.stopBox.Location = new System.Drawing.Point(135, 143);
-      this.stopBox.Name = "stopBox";
-      this.stopBox.Size = new System.Drawing.Size(121, 20);
-      this.stopBox.TabIndex = 16;
-      this.stopBox.Text = "1";
+      this._handCbx.Location = new System.Drawing.Point(94, 150);
+      this._handCbx.Name = "_handCbx";
+      this._handCbx.Size = new System.Drawing.Size(100, 20);
+      this._handCbx.TabIndex = 20;
+      this._handCbx.Text = "1";
       // 
-      // dataBit
+      // parityLab
       // 
-      this.dataBit.AutoSize = true;
-      this.dataBit.Location = new System.Drawing.Point(20, 120);
-      this.dataBit.Name = "dataBit";
-      this.dataBit.Size = new System.Drawing.Size(41, 12);
-      this.dataBit.TabIndex = 15;
-      this.dataBit.Text = "数据位";
+      this.parityLab.AutoSize = true;
+      this.parityLab.Location = new System.Drawing.Point(6, 127);
+      this.parityLab.Name = "parityLab";
+      this.parityLab.Size = new System.Drawing.Size(41, 12);
+      this.parityLab.TabIndex = 19;
+      this.parityLab.Text = "Parity";
       // 
-      // dataBox
+      // _parityCbx
       // 
-      this.dataBox.FormattingEnabled = true;
-      this.dataBox.Items.AddRange(new object[] {
+      this._parityCbx.FormattingEnabled = true;
+      this._parityCbx.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "1.5",
+            "2"});
+      this._parityCbx.Location = new System.Drawing.Point(94, 124);
+      this._parityCbx.Name = "_parityCbx";
+      this._parityCbx.Size = new System.Drawing.Size(100, 20);
+      this._parityCbx.TabIndex = 18;
+      this._parityCbx.Text = "1";
+      // 
+      // stopBitLab
+      // 
+      this.stopBitLab.AutoSize = true;
+      this.stopBitLab.Location = new System.Drawing.Point(6, 101);
+      this.stopBitLab.Name = "stopBitLab";
+      this.stopBitLab.Size = new System.Drawing.Size(41, 12);
+      this.stopBitLab.TabIndex = 17;
+      this.stopBitLab.Text = "停止位";
+      // 
+      // _stopCbx
+      // 
+      this._stopCbx.FormattingEnabled = true;
+      this._stopCbx.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "1.5",
+            "2"});
+      this._stopCbx.Location = new System.Drawing.Point(94, 98);
+      this._stopCbx.Name = "_stopCbx";
+      this._stopCbx.Size = new System.Drawing.Size(100, 20);
+      this._stopCbx.TabIndex = 16;
+      this._stopCbx.Text = "1";
+      // 
+      // dataBitLab
+      // 
+      this.dataBitLab.AutoSize = true;
+      this.dataBitLab.Location = new System.Drawing.Point(6, 75);
+      this.dataBitLab.Name = "dataBitLab";
+      this.dataBitLab.Size = new System.Drawing.Size(41, 12);
+      this.dataBitLab.TabIndex = 15;
+      this.dataBitLab.Text = "数据位";
+      // 
+      // _dataCbx
+      // 
+      this._dataCbx.FormattingEnabled = true;
+      this._dataCbx.Items.AddRange(new object[] {
             "8",
             "7",
             "6",
             "5"});
-      this.dataBox.Location = new System.Drawing.Point(135, 117);
-      this.dataBox.Name = "dataBox";
-      this.dataBox.Size = new System.Drawing.Size(121, 20);
-      this.dataBox.TabIndex = 14;
-      this.dataBox.Text = "8";
+      this._dataCbx.Location = new System.Drawing.Point(94, 72);
+      this._dataCbx.Name = "_dataCbx";
+      this._dataCbx.Size = new System.Drawing.Size(100, 20);
+      this._dataCbx.TabIndex = 14;
+      this._dataCbx.Text = "8";
       // 
-      // sportLabel
+      // comLab
       // 
-      this.sportLabel.AutoSize = true;
-      this.sportLabel.Location = new System.Drawing.Point(20, 93);
-      this.sportLabel.Name = "sportLabel";
-      this.sportLabel.Size = new System.Drawing.Size(41, 12);
-      this.sportLabel.TabIndex = 13;
-      this.sportLabel.Text = "通讯口";
+      this.comLab.AutoSize = true;
+      this.comLab.Location = new System.Drawing.Point(6, 23);
+      this.comLab.Name = "comLab";
+      this.comLab.Size = new System.Drawing.Size(41, 12);
+      this.comLab.TabIndex = 13;
+      this.comLab.Text = "通讯口";
       // 
-      // sPortComboBox
+      // _comCbx
       // 
-      this.sPortComboBox.FormattingEnabled = true;
-      this.sPortComboBox.Items.AddRange(new object[] {
+      this._comCbx.FormattingEnabled = true;
+      this._comCbx.Items.AddRange(new object[] {
             "Fail"});
-      this.sPortComboBox.Location = new System.Drawing.Point(135, 90);
-      this.sPortComboBox.Name = "sPortComboBox";
-      this.sPortComboBox.Size = new System.Drawing.Size(121, 20);
-      this.sPortComboBox.TabIndex = 11;
-      this.sPortComboBox.Text = "Fail";
+      this._comCbx.Location = new System.Drawing.Point(94, 20);
+      this._comCbx.Name = "_comCbx";
+      this._comCbx.Size = new System.Drawing.Size(100, 20);
+      this._comCbx.TabIndex = 11;
+      this._comCbx.Text = "NotFound";
       // 
-      // bot
+      // _botCbx
       // 
-      this.bot.FormattingEnabled = true;
-      this.bot.Items.AddRange(new object[] {
+      this._botCbx.FormattingEnabled = true;
+      this._botCbx.Items.AddRange(new object[] {
             "2400",
             "4800",
             "9600"});
-      this.bot.Location = new System.Drawing.Point(135, 63);
-      this.bot.Name = "bot";
-      this.bot.Size = new System.Drawing.Size(121, 20);
-      this.bot.TabIndex = 10;
-      this.bot.Text = "2400";
+      this._botCbx.Location = new System.Drawing.Point(94, 46);
+      this._botCbx.Name = "_botCbx";
+      this._botCbx.Size = new System.Drawing.Size(100, 20);
+      this._botCbx.TabIndex = 10;
+      this._botCbx.Text = "2400";
+      // 
+      // _send
+      // 
+      this._send.Controls.Add(this._send_string);
+      this._send.Controls.Add(this._send_hex);
+      this._send.Controls.Add(this.sendInput);
+      this._send.Controls.Add(this.dataSend);
+      this._send.Location = new System.Drawing.Point(218, 12);
+      this._send.Name = "_send";
+      this._send.Size = new System.Drawing.Size(520, 261);
+      this._send.TabIndex = 6;
+      this._send.TabStop = false;
+      this._send.Text = "Send";
+      // 
+      // _send_string
+      // 
+      this._send_string.AutoSize = true;
+      this._send_string.Checked = true;
+      this._send_string.Cursor = System.Windows.Forms.Cursors.Hand;
+      this._send_string.Location = new System.Drawing.Point(374, 235);
+      this._send_string.Name = "_send_string";
+      this._send_string.Size = new System.Drawing.Size(59, 16);
+      this._send_string.TabIndex = 7;
+      this._send_string.Text = "String";
+      this._send_string.UseVisualStyleBackColor = true;
+      // 
+      // _send_hex
+      // 
+      this._send_hex.AutoSize = true;
+      this._send_hex.Cursor = System.Windows.Forms.Cursors.Hand;
+      this._send_hex.Location = new System.Drawing.Point(327, 235);
+      this._send_hex.Name = "_send_hex";
+      this._send_hex.Size = new System.Drawing.Size(41, 16);
+      this._send_hex.TabIndex = 6;
+      this._send_hex.Text = "Hex";
+      this._send_hex.UseVisualStyleBackColor = true;
       // 
       // BaseForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(704, 442);
-      this.Controls.Add(this.DataReceive);
-      this.Controls.Add(this.DataSend);
+      this.ClientSize = new System.Drawing.Size(750, 561);
+      this.Controls.Add(this._send);
+      this.Controls.Add(this._receive);
+      this.Controls.Add(this._com);
       this.Name = "BaseForm";
       this.Text = "Title";
       this.Load += new System.EventHandler(this.onLoad);
-      this.DataReceive.ResumeLayout(false);
-      this.DataReceive.PerformLayout();
-      this.DataSend.ResumeLayout(false);
-      this.DataSend.PerformLayout();
+      this._receive.ResumeLayout(false);
+      this._receive.PerformLayout();
+      this._com.ResumeLayout(false);
+      this._com.PerformLayout();
+      this._send.ResumeLayout(false);
+      this._send.PerformLayout();
       this.ResumeLayout(false);
 
     }
 
     #endregion
-    private System.Windows.Forms.GroupBox DataReceive;
+    private System.Windows.Forms.GroupBox _receive;
     private System.Windows.Forms.TextBox receiveArea;
-    private System.Windows.Forms.RadioButton Unicode;
-    private System.Windows.Forms.RadioButton UTF8;
-    private System.Windows.Forms.RadioButton Hex;
+    private System.Windows.Forms.RadioButton _rec_string;
+    private System.Windows.Forms.RadioButton _rec_hex;
     private System.Windows.Forms.TextBox sendInput;
-    private System.Windows.Forms.Button Submit;
-    private System.Windows.Forms.Button Open;
-    private System.Windows.Forms.Label botLabel;
-    private System.Windows.Forms.GroupBox DataSend;
-    private System.Windows.Forms.ComboBox bot;
-    private System.Windows.Forms.Label sportLabel;
-    private System.Windows.Forms.ComboBox sPortComboBox;
-    private System.Windows.Forms.Label stopBit;
-    private System.Windows.Forms.ComboBox stopBox;
-    private System.Windows.Forms.Label dataBit;
-    private System.Windows.Forms.ComboBox dataBox;
+    private System.Windows.Forms.Button dataSend;
+    private System.Windows.Forms.Button _openPort;
+    private System.Windows.Forms.Label botLab;
+    private System.Windows.Forms.GroupBox _com;
+    private System.Windows.Forms.ComboBox _botCbx;
+    private System.Windows.Forms.Label comLab;
+    private System.Windows.Forms.ComboBox _comCbx;
+    private System.Windows.Forms.Label stopBitLab;
+    private System.Windows.Forms.ComboBox _stopCbx;
+    private System.Windows.Forms.Label dataBitLab;
+    private System.Windows.Forms.ComboBox _dataCbx;
+    private System.Windows.Forms.Label handLab;
+    private System.Windows.Forms.ComboBox _handCbx;
+    private System.Windows.Forms.Label parityLab;
+    private System.Windows.Forms.ComboBox _parityCbx;
+    private System.Windows.Forms.GroupBox _send;
+    private System.Windows.Forms.Button clearRec;
+    private System.Windows.Forms.RadioButton _send_string;
+    private System.Windows.Forms.RadioButton _send_hex;
+    private System.Windows.Forms.Button F5;
   }
 }
 
