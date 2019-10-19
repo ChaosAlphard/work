@@ -33,13 +33,13 @@
       this.Open = new System.Windows.Forms.Button();
       this.botLabel = new System.Windows.Forms.Label();
       this.DataSend = new System.Windows.Forms.GroupBox();
-      this.bot = new System.Windows.Forms.ComboBox();
-      this.sPortComboBox = new System.Windows.Forms.ComboBox();
-      this.sportLabel = new System.Windows.Forms.Label();
+      this.stopBit = new System.Windows.Forms.Label();
+      this.stopBox = new System.Windows.Forms.ComboBox();
       this.dataBit = new System.Windows.Forms.Label();
       this.dataBox = new System.Windows.Forms.ComboBox();
-      this.stopBox = new System.Windows.Forms.ComboBox();
-      this.stopBit = new System.Windows.Forms.Label();
+      this.sportLabel = new System.Windows.Forms.Label();
+      this.sPortComboBox = new System.Windows.Forms.ComboBox();
+      this.bot = new System.Windows.Forms.ComboBox();
       this.DataRecive.SuspendLayout();
       this.DataSend.SuspendLayout();
       this.SuspendLayout();
@@ -110,6 +110,7 @@
       // 
       // Submit
       // 
+      this.Submit.Enabled = false;
       this.Submit.Location = new System.Drawing.Point(181, 34);
       this.Submit.Name = "Submit";
       this.Submit.Size = new System.Drawing.Size(75, 23);
@@ -157,39 +158,28 @@
       this.DataSend.TabStop = false;
       this.DataSend.Text = "DataSend";
       // 
-      // bot
+      // stopBit
       // 
-      this.bot.FormattingEnabled = true;
-      this.bot.Items.AddRange(new object[] {
-            "2400",
-            "4800",
-            "9600"});
-      this.bot.Location = new System.Drawing.Point(135, 63);
-      this.bot.Name = "bot";
-      this.bot.Size = new System.Drawing.Size(121, 20);
-      this.bot.TabIndex = 10;
-      this.bot.Text = "2400";
+      this.stopBit.AutoSize = true;
+      this.stopBit.Location = new System.Drawing.Point(20, 146);
+      this.stopBit.Name = "stopBit";
+      this.stopBit.Size = new System.Drawing.Size(41, 12);
+      this.stopBit.TabIndex = 17;
+      this.stopBit.Text = "停止位";
       // 
-      // sPortComboBox
+      // stopBox
       // 
-      this.sPortComboBox.FormattingEnabled = true;
-      this.sPortComboBox.Items.AddRange(new object[] {
-            "COM0",
-            "COM1"});
-      this.sPortComboBox.Location = new System.Drawing.Point(135, 90);
-      this.sPortComboBox.Name = "sPortComboBox";
-      this.sPortComboBox.Size = new System.Drawing.Size(121, 20);
-      this.sPortComboBox.TabIndex = 11;
-      this.sPortComboBox.Text = "COM0";
-      // 
-      // sportLabel
-      // 
-      this.sportLabel.AutoSize = true;
-      this.sportLabel.Location = new System.Drawing.Point(20, 93);
-      this.sportLabel.Name = "sportLabel";
-      this.sportLabel.Size = new System.Drawing.Size(41, 12);
-      this.sportLabel.TabIndex = 13;
-      this.sportLabel.Text = "通讯口";
+      this.stopBox.FormattingEnabled = true;
+      this.stopBox.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "1.5",
+            "2"});
+      this.stopBox.Location = new System.Drawing.Point(135, 143);
+      this.stopBox.Name = "stopBox";
+      this.stopBox.Size = new System.Drawing.Size(121, 20);
+      this.stopBox.TabIndex = 16;
+      this.stopBox.Text = "1";
       // 
       // dataBit
       // 
@@ -204,33 +194,48 @@
       // 
       this.dataBox.FormattingEnabled = true;
       this.dataBox.Items.AddRange(new object[] {
-            "4",
-            "8"});
+            "8",
+            "7",
+            "6",
+            "5"});
       this.dataBox.Location = new System.Drawing.Point(135, 117);
       this.dataBox.Name = "dataBox";
       this.dataBox.Size = new System.Drawing.Size(121, 20);
       this.dataBox.TabIndex = 14;
-      this.dataBox.Text = "4";
+      this.dataBox.Text = "8";
       // 
-      // stopBox
+      // sportLabel
       // 
-      this.stopBox.FormattingEnabled = true;
-      this.stopBox.Items.AddRange(new object[] {
-            "1"});
-      this.stopBox.Location = new System.Drawing.Point(135, 143);
-      this.stopBox.Name = "stopBox";
-      this.stopBox.Size = new System.Drawing.Size(121, 20);
-      this.stopBox.TabIndex = 16;
-      this.stopBox.Text = "1";
+      this.sportLabel.AutoSize = true;
+      this.sportLabel.Location = new System.Drawing.Point(20, 93);
+      this.sportLabel.Name = "sportLabel";
+      this.sportLabel.Size = new System.Drawing.Size(41, 12);
+      this.sportLabel.TabIndex = 13;
+      this.sportLabel.Text = "通讯口";
       // 
-      // stopBit
+      // sPortComboBox
       // 
-      this.stopBit.AutoSize = true;
-      this.stopBit.Location = new System.Drawing.Point(20, 146);
-      this.stopBit.Name = "stopBit";
-      this.stopBit.Size = new System.Drawing.Size(41, 12);
-      this.stopBit.TabIndex = 17;
-      this.stopBit.Text = "停止位";
+      this.sPortComboBox.FormattingEnabled = true;
+      this.sPortComboBox.Items.AddRange(new object[] {
+            "Fail"});
+      this.sPortComboBox.Location = new System.Drawing.Point(135, 90);
+      this.sPortComboBox.Name = "sPortComboBox";
+      this.sPortComboBox.Size = new System.Drawing.Size(121, 20);
+      this.sPortComboBox.TabIndex = 11;
+      this.sPortComboBox.Text = "Fail";
+      // 
+      // bot
+      // 
+      this.bot.FormattingEnabled = true;
+      this.bot.Items.AddRange(new object[] {
+            "2400",
+            "4800",
+            "9600"});
+      this.bot.Location = new System.Drawing.Point(135, 63);
+      this.bot.Name = "bot";
+      this.bot.Size = new System.Drawing.Size(121, 20);
+      this.bot.TabIndex = 10;
+      this.bot.Text = "2400";
       // 
       // BaseForm
       // 
@@ -241,6 +246,7 @@
       this.Controls.Add(this.DataSend);
       this.Name = "BaseForm";
       this.Text = "Title";
+      this.Load += new System.EventHandler(this.onLoad);
       this.DataRecive.ResumeLayout(false);
       this.DataRecive.PerformLayout();
       this.DataSend.ResumeLayout(false);
