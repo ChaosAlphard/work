@@ -3,7 +3,7 @@ using System.IO.Ports;
 using System.Windows.Forms;
 using Microsoft.Win32;
 
-namespace SerialPortDemo {
+namespace SerialPortDemo.Handler {
   static class SPHandler {
 
     public static bool updateSerialPortList(ComboBox cbx) {
@@ -40,56 +40,76 @@ namespace SerialPortDemo {
       SerialPort port, string name,
       int baudRate, int dataBits,
       StopBits stopBits, Parity parity,
-      Handshake handshake, int timeout
+      Handshake handshake, int timeout,
+      Label tip
     ) {
       port.PortName = name;
       port.BaudRate = baudRate;
       port.DataBits = dataBits;
       port.StopBits = stopBits;
-      port.ReadTimeout = -1;
       port.Parity = parity;
       port.Handshake = handshake;
-
-      Console.WriteLine("===========================");
-      Console.WriteLine(port.PortName);
-      Console.WriteLine(port.BaudRate);
-      Console.WriteLine(port.DataBits);
-      Console.WriteLine(port.StopBits);
-      Console.WriteLine(port.ReadTimeout);
-      Console.WriteLine(port.Parity);
-      Console.WriteLine(port.Handshake);
+      port.ReadTimeout = timeout;
 
       try {
         port.Open();
-        MessageBox.Show("打开成功");
+        tip.Text = "打开成功";
+        
         return true;
-      } catch {
-        MessageBox.Show("打开失败");
+      } catch(Exception e) {
+        tip.Text = "打开失败";
+        MessageBox.Show(e.ToString());
         return false;
       }
     }
 
-    public static bool closeSPort(SerialPort port) {
+    public static bool closeSPort(SerialPort port, Label tip) {
       try {
         port.Close();
-        MessageBox.Show("关闭成功");
+        tip.Text = "关闭成功";
         return true;
       } catch {
-        MessageBox.Show("关闭失败");
+        tip.Text = "关闭失败";
         return false;
       }
     }
 
-    public static StopBits getStopBits(string stopStr) {
-      switch(stopStr) {
-        case "1":
-          return StopBits.One;
-        case "1.5":
-          return StopBits.OnePointFive;
-        case "2":
+    public static StopBits getStopBits(int stopSel) {
+      switch(stopSel) {
+        case 1:
           return StopBits.Two;
+        case 2: // 暂不启用
+          return StopBits.OnePointFive;
         default:
-          return StopBits.None;
+          return StopBits.One;
+      }
+    }
+
+    public static Parity getParity(int parSel) {
+      switch(parSel) {
+        case 1:
+          return Parity.Odd;
+        case 2:
+          return Parity.Even;
+        case 3:
+          return Parity.Mark;
+        case 4:
+          return Parity.Space;
+        default:
+          return Parity.None;
+      }
+    }
+
+    public static Handshake getHandshake(int hanSel) {
+      switch(hanSel) {
+        case 1:
+          return Handshake.XOnXOff;
+        case 2: // 暂不启用
+          return Handshake.RequestToSend;
+        case 3: // 暂不启用
+          return Handshake.RequestToSendXOnXOff;
+        default:
+          return Handshake.None;
       }
     }
 

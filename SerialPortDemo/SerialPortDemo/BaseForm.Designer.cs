@@ -33,6 +33,7 @@
       this._openPort = new System.Windows.Forms.Button();
       this.botLab = new System.Windows.Forms.Label();
       this._com = new System.Windows.Forms.GroupBox();
+      this._tip = new System.Windows.Forms.Label();
       this.F5 = new System.Windows.Forms.Button();
       this.handLab = new System.Windows.Forms.Label();
       this._handCbx = new System.Windows.Forms.ComboBox();
@@ -79,26 +80,28 @@
       // _rec_string
       // 
       this._rec_string.AutoSize = true;
-      this._rec_string.Checked = true;
       this._rec_string.Cursor = System.Windows.Forms.Cursors.Hand;
       this._rec_string.Location = new System.Drawing.Point(374, 244);
       this._rec_string.Name = "_rec_string";
       this._rec_string.Size = new System.Drawing.Size(59, 16);
       this._rec_string.TabIndex = 2;
-      this._rec_string.TabStop = true;
       this._rec_string.Text = "String";
       this._rec_string.UseVisualStyleBackColor = true;
+      this._rec_string.CheckedChanged += new System.EventHandler(this.recRadioClick);
       // 
       // _rec_hex
       // 
       this._rec_hex.AutoSize = true;
+      this._rec_hex.Checked = true;
       this._rec_hex.Cursor = System.Windows.Forms.Cursors.Hand;
       this._rec_hex.Location = new System.Drawing.Point(327, 244);
       this._rec_hex.Name = "_rec_hex";
       this._rec_hex.Size = new System.Drawing.Size(41, 16);
       this._rec_hex.TabIndex = 1;
+      this._rec_hex.TabStop = true;
       this._rec_hex.Text = "Hex";
       this._rec_hex.UseVisualStyleBackColor = true;
+      this._rec_hex.CheckedChanged += new System.EventHandler(this.recRadioClick);
       // 
       // receiveArea
       // 
@@ -137,7 +140,7 @@
       this._openPort.TabIndex = 6;
       this._openPort.Text = "打开串口";
       this._openPort.UseVisualStyleBackColor = true;
-      this._openPort.Click += new System.EventHandler(this.OpenSPort);
+      this._openPort.Click += new System.EventHandler(this.onTogglePort);
       // 
       // botLab
       // 
@@ -150,6 +153,7 @@
       // 
       // _com
       // 
+      this._com.Controls.Add(this._tip);
       this._com.Controls.Add(this.F5);
       this._com.Controls.Add(this.handLab);
       this._com.Controls.Add(this._handCbx);
@@ -170,6 +174,14 @@
       this._com.TabIndex = 4;
       this._com.TabStop = false;
       this._com.Text = "COM";
+      // 
+      // _tip
+      // 
+      this._tip.AutoSize = true;
+      this._tip.Location = new System.Drawing.Point(6, 522);
+      this._tip.Name = "_tip";
+      this._tip.Size = new System.Drawing.Size(0, 12);
+      this._tip.TabIndex = 23;
       // 
       // F5
       // 
@@ -194,15 +206,13 @@
       // 
       this._handCbx.FormattingEnabled = true;
       this._handCbx.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "1.5",
-            "2"});
-      this._handCbx.Location = new System.Drawing.Point(94, 150);
+            "None",
+            "XOnXOff"});
+      this._handCbx.Location = new System.Drawing.Point(71, 150);
       this._handCbx.Name = "_handCbx";
-      this._handCbx.Size = new System.Drawing.Size(100, 20);
+      this._handCbx.Size = new System.Drawing.Size(123, 20);
       this._handCbx.TabIndex = 20;
-      this._handCbx.Text = "1";
+      this._handCbx.Text = "None";
       // 
       // parityLab
       // 
@@ -217,15 +227,16 @@
       // 
       this._parityCbx.FormattingEnabled = true;
       this._parityCbx.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "1.5",
-            "2"});
-      this._parityCbx.Location = new System.Drawing.Point(94, 124);
+            "None",
+            "Odd",
+            "Even",
+            "Mark",
+            "Space"});
+      this._parityCbx.Location = new System.Drawing.Point(71, 124);
       this._parityCbx.Name = "_parityCbx";
-      this._parityCbx.Size = new System.Drawing.Size(100, 20);
+      this._parityCbx.Size = new System.Drawing.Size(123, 20);
       this._parityCbx.TabIndex = 18;
-      this._parityCbx.Text = "1";
+      this._parityCbx.Text = "None";
       // 
       // stopBitLab
       // 
@@ -240,13 +251,11 @@
       // 
       this._stopCbx.FormattingEnabled = true;
       this._stopCbx.Items.AddRange(new object[] {
-            "0",
             "1",
-            "1.5",
             "2"});
-      this._stopCbx.Location = new System.Drawing.Point(94, 98);
+      this._stopCbx.Location = new System.Drawing.Point(71, 98);
       this._stopCbx.Name = "_stopCbx";
-      this._stopCbx.Size = new System.Drawing.Size(100, 20);
+      this._stopCbx.Size = new System.Drawing.Size(123, 20);
       this._stopCbx.TabIndex = 16;
       this._stopCbx.Text = "1";
       // 
@@ -267,9 +276,9 @@
             "7",
             "6",
             "5"});
-      this._dataCbx.Location = new System.Drawing.Point(94, 72);
+      this._dataCbx.Location = new System.Drawing.Point(71, 72);
       this._dataCbx.Name = "_dataCbx";
-      this._dataCbx.Size = new System.Drawing.Size(100, 20);
+      this._dataCbx.Size = new System.Drawing.Size(123, 20);
       this._dataCbx.TabIndex = 14;
       this._dataCbx.Text = "8";
       // 
@@ -287,9 +296,9 @@
       this._comCbx.FormattingEnabled = true;
       this._comCbx.Items.AddRange(new object[] {
             "Fail"});
-      this._comCbx.Location = new System.Drawing.Point(94, 20);
+      this._comCbx.Location = new System.Drawing.Point(71, 20);
       this._comCbx.Name = "_comCbx";
-      this._comCbx.Size = new System.Drawing.Size(100, 20);
+      this._comCbx.Size = new System.Drawing.Size(123, 20);
       this._comCbx.TabIndex = 11;
       this._comCbx.Text = "NotFound";
       // 
@@ -299,15 +308,22 @@
       this._botCbx.Items.AddRange(new object[] {
             "2400",
             "4800",
-            "9600"});
-      this._botCbx.Location = new System.Drawing.Point(94, 46);
+            "9600",
+            "14400",
+            "19200",
+            "28800",
+            "38400",
+            "57600",
+            "115200"});
+      this._botCbx.Location = new System.Drawing.Point(71, 46);
       this._botCbx.Name = "_botCbx";
-      this._botCbx.Size = new System.Drawing.Size(100, 20);
+      this._botCbx.Size = new System.Drawing.Size(123, 20);
       this._botCbx.TabIndex = 10;
-      this._botCbx.Text = "2400";
+      this._botCbx.Text = "9600";
       // 
       // _send
       // 
+      this._send.BackColor = System.Drawing.SystemColors.Control;
       this._send.Controls.Add(this._send_string);
       this._send.Controls.Add(this._send_hex);
       this._send.Controls.Add(this._send_input);
@@ -331,6 +347,7 @@
       this._send_string.TabStop = true;
       this._send_string.Text = "String";
       this._send_string.UseVisualStyleBackColor = true;
+      this._send_string.CheckedChanged += new System.EventHandler(this.sendRadioClick);
       // 
       // _send_hex
       // 
@@ -342,16 +359,21 @@
       this._send_hex.TabIndex = 6;
       this._send_hex.Text = "Hex";
       this._send_hex.UseVisualStyleBackColor = true;
+      this._send_hex.CheckedChanged += new System.EventHandler(this.sendRadioClick);
       // 
       // BaseForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+      this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+      this.BackColor = System.Drawing.SystemColors.Control;
       this.ClientSize = new System.Drawing.Size(750, 561);
       this.Controls.Add(this._send);
       this.Controls.Add(this._receive);
       this.Controls.Add(this._com);
+      this.MaximizeBox = false;
       this.Name = "BaseForm";
+      this.ShowIcon = false;
       this.Text = "Title";
       this.Load += new System.EventHandler(this.onLoad);
       this._receive.ResumeLayout(false);
@@ -370,7 +392,6 @@
     private System.Windows.Forms.RadioButton _rec_string;
     private System.Windows.Forms.RadioButton _rec_hex;
     private System.Windows.Forms.TextBox _send_input;
-    private System.Windows.Forms.Button dataSend;
     private System.Windows.Forms.Button _openPort;
     private System.Windows.Forms.Label botLab;
     private System.Windows.Forms.GroupBox _com;
@@ -391,6 +412,7 @@
     private System.Windows.Forms.RadioButton _send_hex;
     private System.Windows.Forms.Button F5;
     private System.Windows.Forms.Button _send_submit;
+    private System.Windows.Forms.Label _tip;
   }
 }
 
