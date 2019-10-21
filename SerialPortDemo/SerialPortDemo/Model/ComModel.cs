@@ -9,8 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SerialPortDemo.Model {
-  public delegate void SerialPortEventHandler(object sender, SerialPortEventArgs e);
-
   public class SerialPortEventArgs : EventArgs {
     public bool isOpened = false;
     public byte[] receivedBytes = null;
@@ -19,10 +17,6 @@ namespace SerialPortDemo.Model {
   class ComModel {
     private SerialPort port;
 
-    public event SerialPortEventHandler comRecDataEvent = null;
-    public event SerialPortEventHandler comOpenEvent = null;
-    public event SerialPortEventHandler comCloseEvent = null;
-
     private Object comLock = new Object();
 
     public ComModel(SerialPort port) {
@@ -30,24 +24,17 @@ namespace SerialPortDemo.Model {
     }
 
     public Msg openPort() {
+      Console.WriteLine("11111");
       if(port.IsOpen) {
         return new Msg(false, "Port is already been opened!");
       }
-      var evArgs = new SerialPortEventArgs();
       try {
         port.Open();
-        port.DataReceived += new SerialDataReceivedEventHandler(onDataReceived);
-        evArgs.isOpened = true;
+        return new Msg(true, "Open success!");
       } catch(Exception e) {
-        evArgs.isOpened = false;
         MessageBox.Show(e.ToString());
         return new Msg(false, "Open fail!");
-      } finally {
-        if(comOpenEvent != null) {
-          comOpenEvent.Invoke(this, evArgs);
-        }
       }
-      return new Msg(true, "Open success!");
     }
 
     public Msg closePort() {
@@ -66,14 +53,10 @@ namespace SerialPortDemo.Model {
       try {
         port.Close();
         evArgs.isOpened = false;
-        port.DataReceived -= new SerialDataReceivedEventHandler(onDataReceived);
+        //port.DataReceived -= new SerialDataReceivedEventHandler(onDataReceived);
       } catch(Exception e) {
         MessageBox.Show(e.ToString());
         throw new Exception("closeThreadErr");
-      } finally {
-        if(comCloseEvent != null) {
-          comCloseEvent.Invoke(this, evArgs);
-        }
       }
     }
 
@@ -110,6 +93,7 @@ namespace SerialPortDemo.Model {
         byte[] data = new byte[len];
         try {
           port.Read(data, 0, len);
+          MessageBox.Show(port.Read(data, 0, len).ToString());
         } catch(Exception err) {
           MessageBox.Show(err.ToString());
           return;
@@ -168,6 +152,10 @@ namespace SerialPortDemo.Model {
     public ComModel setWriteTimeout(int timeout) {
       port.WriteTimeout = timeout;
       return this;
+    }
+
+    public SerialPort getPort() {
+      return port;
     }
   }// clasee
 }

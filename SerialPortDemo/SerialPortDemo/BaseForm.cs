@@ -51,6 +51,7 @@ namespace SerialPortDemo {
 
     // 切换串口状态
     private void onTogglePort(object sender, EventArgs e) {
+      Console.WriteLine("======");
       if (port.isOpen()) {
         try {
           port.setPortName(_comCbx.Text.Trim())
@@ -64,14 +65,14 @@ namespace SerialPortDemo {
           MessageBox.Show(err.ToString());
           return;
         }
-        openPort();
+        port.openPort();
       } else {
-        closePort();
+        port.closePort();
       }
       
-      // if(!port.IsOpen) {
+      // if(!port.isOpen()) {
       //   bool openSucc = SPHandler.openSPort(
-      //     port, _comCbx.Text.Trim(),  // 串口名
+      //     port.getPort(), _comCbx.Text.Trim(),  // 串口名
       //     Convert.ToInt32(_botCbx.Text.Trim()), // 波特率
       //     Convert.ToInt32(_dataCbx.Text.Trim()),  // 数据位
       //     SPHandler.getStopBits(_stopCbx.SelectedIndex), // 停止位                    
@@ -91,11 +92,11 @@ namespace SerialPortDemo {
       //               = _handCbx.Enabled
       //               = false;
       //     _send_input.Enabled = _send_submit.Enabled = true;
-      //     port.DataReceived += onDataReceived();
+      //     port.getPort().DataReceived += onDataReceived();
       //   }
       //   
       // } else {
-      //   bool closeSucc = SPHandler.closeSPort(port,_tip);
+      //   bool closeSucc = SPHandler.closeSPort(port.getPort(),_tip);
       //   if(closeSucc) {
       //     _openPort.Text = "打开串口";
       //     F5.Enabled = _botCbx.Enabled
@@ -106,7 +107,7 @@ namespace SerialPortDemo {
       //               = _handCbx.Enabled
       //               = true;
       //     _send_input.Enabled = _send_submit.Enabled = false;
-      //     port.DataReceived -= onDataReceived();
+      //     port.getPort().DataReceived -= onDataReceived();
       //   }
       // }
     }
@@ -123,6 +124,7 @@ namespace SerialPortDemo {
                   = _handCbx.Enabled
                   = false;
         _send_input.Enabled = _send_submit.Enabled = true;
+        port.getPort().DataReceived += onDataReceived();
       } else {
         _tip.Text = openMsg.msg;
       }
@@ -140,6 +142,7 @@ namespace SerialPortDemo {
                   = _handCbx.Enabled
                   = true;
         _send_input.Enabled = _send_submit.Enabled = false;
+        port.getPort().DataReceived -= onDataReceived();
       } else {
         _tip.Text = closeMsg.msg;
       }

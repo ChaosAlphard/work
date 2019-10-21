@@ -52,7 +52,9 @@
     <Compile Include="BaseForm.Designer.cs">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DTO\Msg.cs" />
     <Compile Include="Handler\StrHandler.cs" />
+    <Compile Include="Model\ComModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Handler\SPHandler.cs" />
