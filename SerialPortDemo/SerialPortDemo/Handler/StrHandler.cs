@@ -43,5 +43,10 @@ namespace SerialPortDemo.Handler {
     public static string byte2Hex(byte[] bytes) {
       return BitConverter.ToString(bytes);
     }
+
+    //bytes to string
+    public static string byte2Str(byte[] bytes) {
+      return Encoding.Default.GetString(bytes);
+    }
   }// class
 }

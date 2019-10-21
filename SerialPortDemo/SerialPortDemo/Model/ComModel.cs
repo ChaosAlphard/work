@@ -9,22 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SerialPortDemo.Model {
-  public class SerialPortEventArgs : EventArgs {
-    public bool isOpened = false;
-    public byte[] receivedBytes = null;
-  }
-
   class ComModel {
     private SerialPort port;
 
-    private Object comLock = new Object();
+    private object comLock = new object();
 
     public ComModel(SerialPort port) {
       this.port = port;
     }
 
     public Msg openPort() {
-      Console.WriteLine("11111");
       if(port.IsOpen) {
         return new Msg(false, "Port is already been opened!");
       }
@@ -39,8 +33,9 @@ namespace SerialPortDemo.Model {
 
     public Msg closePort() {
       try {
-        var closeThread = new Thread(new ThreadStart(closePortThread));
-        closeThread.Start();
+        //var closeThread = new Thread(new ThreadStart(closePortThread));
+        //closeThread.Start();
+        port.Close();
         return new Msg(true, "Close success!");
       } catch (Exception e) {
         MessageBox.Show(e.ToString());
@@ -49,10 +44,8 @@ namespace SerialPortDemo.Model {
     }
 
     private void closePortThread() {
-      SerialPortEventArgs evArgs = new SerialPortEventArgs();
       try {
         port.Close();
-        evArgs.isOpened = false;
         //port.DataReceived -= new SerialDataReceivedEventHandler(onDataReceived);
       } catch(Exception e) {
         MessageBox.Show(e.ToString());
@@ -157,5 +150,5 @@ namespace SerialPortDemo.Model {
     public SerialPort getPort() {
       return port;
     }
-  }// clasee
+  }// class
 }

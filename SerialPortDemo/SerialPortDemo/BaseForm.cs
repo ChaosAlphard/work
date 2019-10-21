@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using SerialPortDemo.DTO;
 using SerialPortDemo.Model;
 using SerialPortDemo.Handler;
+using System.Threading;
 
 namespace SerialPortDemo {
   public partial class BaseForm : Form {
@@ -12,8 +13,10 @@ namespace SerialPortDemo {
     // 串口对象
     private ComModel port = new ComModel(new SerialPort());
     // msg
-    private StringBuilder recStr = new StringBuilder();
-    private string recedStr = "";
+    private byte[] dataToSend = new byte[0];
+    private string dataThatReced = "";
+
+    //public Thread readThread = new Thread()
 
     private bool __sendIsHex = false;
     private bool __recIsHex = true;
@@ -37,6 +40,7 @@ namespace SerialPortDemo {
 
     public BaseForm() {
       InitializeComponent();
+      BaseForm.CheckForIllegalCrossThreadCalls = false;
     }
 
     // 主窗体加载
@@ -51,8 +55,8 @@ namespace SerialPortDemo {
 
     // 切换串口状态
     private void onTogglePort(object sender, EventArgs e) {
-      Console.WriteLine("======");
-      if (port.isOpen()) {
+      Console.WriteLine(port.isOpen().ToString());
+      if (!port.isOpen()) {
         try {
           port.setPortName(_comCbx.Text.Trim())
             .setBaudRate(Convert.ToInt32(_botCbx.Text.Trim()))
@@ -65,11 +69,12 @@ namespace SerialPortDemo {
           MessageBox.Show(err.ToString());
           return;
         }
-        port.openPort();
+        openPort();
       } else {
-        port.closePort();
+        closePort();
       }
       
+      /**
       // if(!port.isOpen()) {
       //   bool openSucc = SPHandler.openSPort(
       //     port.getPort(), _comCbx.Text.Trim(),  // 串口名
@@ -110,6 +115,7 @@ namespace SerialPortDemo {
       //     port.getPort().DataReceived -= onDataReceived();
       //   }
       // }
+      */
     }
 
     private void openPort() {
@@ -125,9 +131,8 @@ namespace SerialPortDemo {
                   = false;
         _send_input.Enabled = _send_submit.Enabled = true;
         port.getPort().DataReceived += onDataReceived();
-      } else {
-        _tip.Text = openMsg.msg;
       }
+      _tip.Text = openMsg.msg;
     }
 
     private void closePort() {
@@ -143,9 +148,8 @@ namespace SerialPortDemo {
                   = true;
         _send_input.Enabled = _send_submit.Enabled = false;
         port.getPort().DataReceived -= onDataReceived();
-      } else {
-        _tip.Text = closeMsg.msg;
       }
+      _tip.Text = closeMsg.msg;
     }
 
     // 发送数据
@@ -154,12 +158,7 @@ namespace SerialPortDemo {
         MessageBox.Show("串口没有打开");
         return;
       }
-      var dataToSend = _send_input.Text.Trim();
-      if(dataToSend == "") {
-        MessageBox.Show("数据不能为空");
-        return;
-      }
-      port.sendData(StrHandler.str2Byte(dataToSend));
+      port.sendData(dataToSend);
     }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -169,15 +168,20 @@ namespace SerialPortDemo {
       return new SerialDataReceivedEventHandler(
         (sender, e) => {
           var sp = (SerialPort)sender;
-          string data = sp.ReadExisting().Trim();
-          Console.WriteLine(data);
-          if(data != "") {
-            receiveArea.Text = data;
+          dataThatReced = sp.ReadExisting().Trim();
+          if (dataThatReced != "") {
+            //MessageBox.Show(_rec_hex.Checked.ToString());
+            if (_rec_hex.Checked) {
+              //MessageBox.Show(StrHandler.str2Byte(_send_input.Text).ToString());
+              receiveArea.Text = StrHandler.str2Hex(dataThatReced);
+            } else {
+              receiveArea.Text = dataThatReced;
+            }
             clearRec.Enabled = true;
           } else {
             clearRec.Enabled = false;
           }
-          // try {
+          /** // try {
           //   var strbud = new StringBuilder();
           //   while(port.BytesToRead > 0) {
           //     var sch = (char)port.ReadByte();
@@ -187,9 +191,28 @@ namespace SerialPortDemo {
           //   receiveArea.Text = recStr.ToString();
           // } catch(Exception err) {
           //   MessageBox.Show($"在读取时出现错误:\n{err}");
-          // }
+          // }*/
         }
       );
+    }
+
+    private void cacheText(object sender, EventArgs e) {
+      var str = _send_input.Text.Trim();
+      if (str == "") {
+        _tip.Text = "内容不能为纯空格";
+      }
+      if (_send_string.Checked) {
+        dataToSend = null;
+        dataToSend = StrHandler.str2Byte(str);
+      } else {
+        dataToSend = null;
+        dataToSend = StrHandler.hex2Bytes(str);
+      }
+    }
+
+    private void clearReceive(object sender, EventArgs e) {
+      dataThatReced = "";
+      receiveArea.Text = "";
     }
 
     private void sendRadioClick(object sender, EventArgs e) {
@@ -197,14 +220,14 @@ namespace SerialPortDemo {
         sendIsHex = true;
 
         _send_input.Text = StrHandler
-          .str2Hex(_send_input.Text);
+          .byte2Hex(dataToSend);
 
         _send_input.ReadOnly = true;
       } else {
         sendIsHex = false;
 
         _send_input.Text = StrHandler
-          .hex2Str(_send_input.Text);
+          .byte2Str(dataToSend);
 
         _send_input.ReadOnly = false;
       }
@@ -214,11 +237,10 @@ namespace SerialPortDemo {
       if (_rec_hex.Checked) {
         recIsHex = true;
         receiveArea.Text = StrHandler
-          .hex2Str(_send_input.Text);
+          .str2Hex(dataThatReced);
       } else {
         recIsHex = false;
-        receiveArea.Text = StrHandler
-          .hex2Str(_send_input.Text);
+        receiveArea.Text = dataThatReced;
       }
     }
 

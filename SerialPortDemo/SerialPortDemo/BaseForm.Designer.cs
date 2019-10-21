@@ -23,6 +23,7 @@
     /// 使用代码编辑器修改此方法的内容。
     /// </summary>
     private void InitializeComponent() {
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
       this._receive = new System.Windows.Forms.GroupBox();
       this.clearRec = new System.Windows.Forms.Button();
       this._rec_string = new System.Windows.Forms.RadioButton();
@@ -76,6 +77,7 @@
       this.clearRec.TabIndex = 6;
       this.clearRec.Text = "Clear";
       this.clearRec.UseVisualStyleBackColor = true;
+      this.clearRec.Click += new System.EventHandler(this.clearReceive);
       // 
       // _rec_string
       // 
@@ -120,6 +122,7 @@
       this._send_input.Name = "_send_input";
       this._send_input.Size = new System.Drawing.Size(508, 206);
       this._send_input.TabIndex = 5;
+      this._send_input.TextChanged += new System.EventHandler(this.cacheText);
       // 
       // _send_submit
       // 
@@ -371,6 +374,7 @@
       this.Controls.Add(this._send);
       this.Controls.Add(this._receive);
       this.Controls.Add(this._com);
+      this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.MaximizeBox = false;
       this.Name = "BaseForm";
       this.ShowIcon = false;
