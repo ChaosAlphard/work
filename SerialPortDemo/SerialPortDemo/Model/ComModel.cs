@@ -66,6 +66,33 @@ namespace SerialPortDemo.Model {
       }
     }
 
+    public Msg sendDataWithLine(byte[] data) {
+      if (!port.IsOpen) {
+        return new Msg(false, "Oprt was not open!");
+      }
+      try {
+        port.Write(data, 0, data.Length);
+        port.WriteLine("");
+        return new Msg(true, "Send success");
+      } catch (Exception e) {
+        MessageBox.Show(e.ToString());
+        return new Msg(false, "Send fail");
+      }
+    }
+
+    public Msg sendLineData(string data) {
+      if (!port.IsOpen) {
+        return new Msg(false, "Oprt was not open!");
+      }
+      try {
+        port.WriteLine(data);
+        return new Msg(true, "Send success");
+      } catch (Exception e) {
+        MessageBox.Show(e.ToString());
+        return new Msg(false, "Send fail");
+      }
+    }
+
     public bool isOpen() {
       return port.IsOpen;
     }

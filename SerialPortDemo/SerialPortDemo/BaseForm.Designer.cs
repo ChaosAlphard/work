@@ -28,7 +28,6 @@
       this.clearRec = new System.Windows.Forms.Button();
       this._rec_string = new System.Windows.Forms.RadioButton();
       this._rec_hex = new System.Windows.Forms.RadioButton();
-      this.receiveArea = new System.Windows.Forms.TextBox();
       this._send_input = new System.Windows.Forms.TextBox();
       this._send_submit = new System.Windows.Forms.Button();
       this._openPort = new System.Windows.Forms.Button();
@@ -48,8 +47,12 @@
       this._comCbx = new System.Windows.Forms.ComboBox();
       this._botCbx = new System.Windows.Forms.ComboBox();
       this._send = new System.Windows.Forms.GroupBox();
+      this.label1 = new System.Windows.Forms.Label();
+      this._formatShow = new System.Windows.Forms.TextBox();
       this._send_string = new System.Windows.Forms.RadioButton();
       this._send_hex = new System.Windows.Forms.RadioButton();
+      this.receiveArea = new System.Windows.Forms.TextBox();
+      this._autoSend = new System.Windows.Forms.CheckBox();
       this._receive.SuspendLayout();
       this._com.SuspendLayout();
       this._send.SuspendLayout();
@@ -105,24 +108,17 @@
       this._rec_hex.UseVisualStyleBackColor = true;
       this._rec_hex.CheckedChanged += new System.EventHandler(this.recRadioClick);
       // 
-      // receiveArea
-      // 
-      this.receiveArea.Location = new System.Drawing.Point(7, 20);
-      this.receiveArea.Multiline = true;
-      this.receiveArea.Name = "receiveArea";
-      this.receiveArea.ReadOnly = true;
-      this.receiveArea.Size = new System.Drawing.Size(507, 215);
-      this.receiveArea.TabIndex = 0;
-      // 
       // _send_input
       // 
       this._send_input.Enabled = false;
       this._send_input.Location = new System.Drawing.Point(6, 20);
       this._send_input.Multiline = true;
       this._send_input.Name = "_send_input";
-      this._send_input.Size = new System.Drawing.Size(508, 206);
+      this._send_input.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+      this._send_input.Size = new System.Drawing.Size(251, 206);
       this._send_input.TabIndex = 5;
       this._send_input.TextChanged += new System.EventHandler(this.cacheText);
+      this._send_input.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onKeyDown);
       // 
       // _send_submit
       // 
@@ -156,7 +152,6 @@
       // 
       // _com
       // 
-      this._com.Controls.Add(this._tip);
       this._com.Controls.Add(this.F5);
       this._com.Controls.Add(this.handLab);
       this._com.Controls.Add(this._handCbx);
@@ -181,7 +176,7 @@
       // _tip
       // 
       this._tip.AutoSize = true;
-      this._tip.Location = new System.Drawing.Point(6, 522);
+      this._tip.Location = new System.Drawing.Point(6, 237);
       this._tip.Name = "_tip";
       this._tip.Size = new System.Drawing.Size(0, 12);
       this._tip.TabIndex = 23;
@@ -327,6 +322,10 @@
       // _send
       // 
       this._send.BackColor = System.Drawing.SystemColors.Control;
+      this._send.Controls.Add(this._tip);
+      this._send.Controls.Add(this._autoSend);
+      this._send.Controls.Add(this.label1);
+      this._send.Controls.Add(this._formatShow);
       this._send.Controls.Add(this._send_string);
       this._send.Controls.Add(this._send_hex);
       this._send.Controls.Add(this._send_input);
@@ -337,6 +336,25 @@
       this._send.TabIndex = 6;
       this._send.TabStop = false;
       this._send.Text = "Send";
+      // 
+      // label1
+      // 
+      this.label1.AutoSize = true;
+      this.label1.Location = new System.Drawing.Point(263, 20);
+      this.label1.Name = "label1";
+      this.label1.Size = new System.Drawing.Size(41, 12);
+      this.label1.TabIndex = 9;
+      this.label1.Text = "Format";
+      // 
+      // _formatShow
+      // 
+      this._formatShow.Location = new System.Drawing.Point(263, 35);
+      this._formatShow.Multiline = true;
+      this._formatShow.Name = "_formatShow";
+      this._formatShow.ReadOnly = true;
+      this._formatShow.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+      this._formatShow.Size = new System.Drawing.Size(251, 191);
+      this._formatShow.TabIndex = 8;
       // 
       // _send_string
       // 
@@ -363,6 +381,28 @@
       this._send_hex.Text = "Hex";
       this._send_hex.UseVisualStyleBackColor = true;
       this._send_hex.CheckedChanged += new System.EventHandler(this.sendRadioClick);
+      // 
+      // receiveArea
+      // 
+      this.receiveArea.Location = new System.Drawing.Point(7, 20);
+      this.receiveArea.Multiline = true;
+      this.receiveArea.Name = "receiveArea";
+      this.receiveArea.ReadOnly = true;
+      this.receiveArea.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+      this.receiveArea.Size = new System.Drawing.Size(507, 215);
+      this.receiveArea.TabIndex = 0;
+      // 
+      // _autoSend
+      // 
+      this._autoSend.AutoSize = true;
+      this._autoSend.Enabled = false;
+      this._autoSend.Location = new System.Drawing.Point(243, 236);
+      this._autoSend.Name = "_autoSend";
+      this._autoSend.Size = new System.Drawing.Size(78, 16);
+      this._autoSend.TabIndex = 10;
+      this._autoSend.Text = "Auto Send";
+      this._autoSend.UseVisualStyleBackColor = true;
+      this._autoSend.CheckedChanged += new System.EventHandler(this.toggleAutoSend);
       // 
       // BaseForm
       // 
@@ -392,7 +432,6 @@
 
     #endregion
     private System.Windows.Forms.GroupBox _receive;
-    private System.Windows.Forms.TextBox receiveArea;
     private System.Windows.Forms.RadioButton _rec_string;
     private System.Windows.Forms.RadioButton _rec_hex;
     private System.Windows.Forms.TextBox _send_input;
@@ -417,6 +456,10 @@
     private System.Windows.Forms.Button F5;
     private System.Windows.Forms.Button _send_submit;
     private System.Windows.Forms.Label _tip;
+    private System.Windows.Forms.Label label1;
+    private System.Windows.Forms.TextBox _formatShow;
+    private System.Windows.Forms.TextBox receiveArea;
+    private System.Windows.Forms.CheckBox _autoSend;
   }
 }
 
