@@ -1,20 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Udp.Handler;
 
 namespace Udp {
   /// <summary>
@@ -102,14 +92,42 @@ namespace Udp {
       var iep = new IPEndPoint(IPAddress.Any, 0);
       string recStr = "";
 
+      var reg = new Regex(@"^ \$\{\|\|([0-9A-F]*)\|\|\}\-(.*)$");
+
       while (true) {
-        byte[] recByte = client.getClient().Receive(ref iep);
-        recStr += Encoding.UTF8.GetString(recByte);
+        byte[] recByte = new byte[0];
+        try {
+          recByte = client.getClient().Receive(ref iep);
+        } catch (ThreadAbortException) {
+          //
+        } catch (SocketException) {
+          aReceive.Dispatcher.Invoke(
+            new changeReceive(changeTipAction),
+            "[×]Send fail!");
+          //xTip.Text = "发送失败";
+          continue;
+        } catch (Exception ex) {
+          MessageBox.Show(ex.ToString());
+        }
+
+        string strCol = Util.byte2Str(recByte);
+        var res = reg.Match(strCol);
+        var sha = res.Groups[1].ToString();
+        var str = res.Groups[2].ToString();
+
+        if(!Util.getSha256(Util.str2Byte(str)).Equals(sha)) {
+          // MessageBox.Show("文本校验失败, 数据丢失");
+          recStr += "[校验失败]";
+          //continue;
+        }
+
+        var _ip = iep.Address.ToString();
+        var _port = iep.Port;
+        recStr += $"来自[{_ip}:{_port}]的消息:\n{str}\n";
         // aReceive.Text = recStr;
         aReceive.Dispatcher.Invoke(
           new changeReceive(changeRecAction),
-          recStr
-        );
+          recStr);
       }
 
     }
@@ -119,6 +137,10 @@ namespace Udp {
       if(msg.Length > 0) {
         recClear.IsEnabled = true;
       }
+    }
+
+    private void changeTipAction(string msg) {
+      xTip.Text = msg;
     }
 
     private void unlisten() {

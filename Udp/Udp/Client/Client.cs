@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Udp.Handler;
 
 namespace Udp {
   class Client {
@@ -30,13 +31,16 @@ namespace Udp {
     }
 
     public bool checkLocalClient() {
-      return hasLocalEP();
+      return client?.Client?.LocalEndPoint != null;
     }
 
     public void sendMsg(string msg, string ip, int port) {
       var remoteIP = IPAddress.Parse(ip);
       var iep = new IPEndPoint(remoteIP, port);
-      var bytes = Encoding.UTF8.GetBytes(msg);
+
+      string sha = Util.getSha256(Util.str2Byte(msg));
+      var bytes = Util.str2Byte(" ${||"+sha+"||}-"+msg);
+
       client.Send(bytes, bytes.Length, iep);
     }
 

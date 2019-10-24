@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -35,5 +36,17 @@ namespace Udp.Handler {
       }
       return "";
     }
-  }
+
+    public static string getSha256(byte[] bytes) {
+      byte[] sha = SHA256.Create().ComputeHash(bytes);
+
+      var builder = new StringBuilder();
+      for (int i = 0; i < sha.Length; i++) {
+        builder.Append(sha[i].ToString("X2"));
+      }
+
+      return builder.ToString();
+    }
+
+  }// class
 }
