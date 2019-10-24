@@ -17,6 +17,7 @@ namespace Udp {
 
     private bool __isOpen = false;
     private Thread recTh = null;
+    private string recStr = "";
 
     private bool isOpen {
       get {
@@ -91,7 +92,7 @@ namespace Udp {
 
     private void receiveDataThread() {
       var iep = new IPEndPoint(IPAddress.Any, 0);
-      string recStr = "";
+      recStr = "";
 
       var reg = new Regex(@"^ \$\{\|\|([0-9A-F]*)\|\|\}\-(.*)$");
 
@@ -116,7 +117,7 @@ namespace Udp {
         var sha = res.Groups[1].ToString();
         var str = res.Groups[2].ToString();
 
-        if(!Util.getSha256(Util.str2Byte(str)).Equals(sha)) {
+        if(!Util.getSha1(Util.str2Byte(str)).Equals(sha)) {
           // MessageBox.Show("文本校验失败, 数据丢失");
           recStr += "[校验失败]";
           //continue;
@@ -189,6 +190,7 @@ namespace Udp {
     }
 
     private void clearRec(object sender, RoutedEventArgs e) {
+      recStr = "";
       aReceive.Text = "";
       recClear.IsEnabled = false;
     }

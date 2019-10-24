@@ -38,7 +38,7 @@ namespace Udp {
       var remoteIP = IPAddress.Parse(ip);
       var iep = new IPEndPoint(remoteIP, port);
 
-      string sha = Util.getSha256(Util.str2Byte(msg));
+      string sha = Util.getSha1(Util.str2Byte(msg));
       var bytes = Util.str2Byte(" ${||"+sha+"||}-"+msg);
 
       client.Send(bytes, bytes.Length, iep);

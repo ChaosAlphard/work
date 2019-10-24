@@ -37,8 +37,8 @@ namespace Udp.Handler {
       return "";
     }
 
-    public static string getSha256(byte[] bytes) {
-      byte[] sha = SHA256.Create().ComputeHash(bytes);
+    public static string getSha1(byte[] bytes) {
+      byte[] sha = SHA1.Create().ComputeHash(bytes);
 
       var builder = new StringBuilder();
       for (int i = 0; i < sha.Length; i++) {
