@@ -27,7 +27,7 @@ namespace Udp {
         aSend.IsReadOnly = !value;
         xLocalPort.IsReadOnly = xSendBtn.IsEnabled = value;
         if(value) {
-          xBindLocalPortBtn.Content = "Rebind";
+          xBindLocalPortBtn.Content = "Unbind";
         } else {
           xBindLocalPortBtn.Content = "Bind";
         }
@@ -66,6 +66,7 @@ namespace Udp {
           unlisten();
           closePort();
           isOpen = false;
+          xTip.Text = "[√]UnBind succ!";
         } catch(NullReferenceException) {
           isOpen = false;
         } catch(ThreadAbortException te){
@@ -167,6 +168,10 @@ namespace Udp {
       var ip = xRemoteIP.Text.Trim();
       var portStr = xRemotePort.Text.Trim();
       var msg = aSend.Text.Trim();
+      if(msg == "") {
+        xTip.Text = "[!]数据不能为空";
+        return;
+      }
       try {
         int n = Convert.ToInt32(portStr);
         client.sendMsg(msg, ip, n);
