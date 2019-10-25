@@ -20,16 +20,7 @@ namespace Udp {
       client = new UdpClient(port);
     }
 
-    /**查看是否创建Udp服务
-     */
-    private bool hasLocalEP() {
-      if(client!=null&&client.Client!=null) {
-        return client.Client.LocalEndPoint != null;
-      } else {
-        return false;
-      }
-    }
-
+    /* 查看是否创建Udp服务 */
     public bool checkLocalClient() {
       return client?.Client?.LocalEndPoint != null;
     }
@@ -43,28 +34,6 @@ namespace Udp {
 
       client.Send(bytes, bytes.Length, iep);
     }
-
-    public void sendMsg(byte[] bytes, IPEndPoint iep) {
-      client.Send(bytes, bytes.Length, iep);
-    }
-
-    /**
-    public Client startRecDataFromAnyIP() {
-      new Thread(receiveDataThread) {
-        IsBackground = true
-      }.Start();
-
-      return this;
-    }
-    private void receiveDataThread() {
-      var iep = new IPEndPoint(IPAddress.Any, 0);
-
-      while(true) {
-        byte[] recByte = client.Receive(ref iep);
-        string recStr = Encoding.UTF8.GetString(recByte);
-      }
-    }
-    */
 
     public void closeClient() {
       client.Close();
