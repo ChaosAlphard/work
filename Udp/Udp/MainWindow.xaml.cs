@@ -120,7 +120,7 @@ namespace Udp {
         if(!Util.getSha1(Util.str2Byte(str)).Equals(sha)) {
           // MessageBox.Show("文本校验失败, 数据丢失");
           recStr += "[校验失败]";
-          //continue;
+          // continue;
         }
 
         var _ip = iep.Address.ToString();
