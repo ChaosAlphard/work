@@ -94,7 +94,7 @@ namespace Udp {
       var iep = new IPEndPoint(IPAddress.Any, 0);
       recStr = "";
 
-      var reg = new Regex(@"^ \$\{\|\|([0-9A-F]*)\|\|\}\-(.*)$");
+      var reg = new Regex(@"^ \$\{\|\|([0-9A-F]*)\|\|\}\-((.|\n)*)$");
 
       while (true) {
         byte[] recByte = new byte[0];
@@ -105,7 +105,8 @@ namespace Udp {
         } catch (SocketException) {
           aReceive.Dispatcher.Invoke(
             new changeReceive(changeTipAction),
-            "[×]Send fail!");
+            "[×]Send fail!"
+            );
           //xTip.Text = "发送失败";
           continue;
         } catch (Exception ex) {
