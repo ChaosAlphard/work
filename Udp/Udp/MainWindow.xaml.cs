@@ -105,8 +105,7 @@ namespace Udp {
         } catch (SocketException) {
           aReceive.Dispatcher.Invoke(
             new changeReceive(changeTipAction),
-            "[×]Send fail!"
-            );
+            "[×]Send fail!");
           //xTip.Text = "发送失败";
           continue;
         } catch (Exception ex) {
