@@ -46,6 +46,7 @@
     <Compile Include="exp01\Class01.cs" />
     <Compile Include="exp01\CreateThread.cs" />
     <Compile Include="exp01\JoinAndSleep.cs" />
+    <Compile Include="exp01\ThreadNaming.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
