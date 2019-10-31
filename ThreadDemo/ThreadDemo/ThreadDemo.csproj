@@ -46,7 +46,10 @@
     <Compile Include="exp01\Class01.cs" />
     <Compile Include="exp01\CreateThread.cs" />
     <Compile Include="exp01\JoinAndSleep.cs" />
+    <Compile Include="exp01\ThdPool.cs" />
     <Compile Include="exp01\ThreadNaming.cs" />
+    <Compile Include="exp02\c01sync.cs" />
+    <Compile Include="exp02\c02lock.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

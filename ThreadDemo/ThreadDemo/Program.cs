@@ -1,4 +1,5 @@
 ﻿using System;
+using ThreadDemo.exp02;
 
 namespace ThreadDemo {
   class Program {
@@ -23,9 +24,9 @@ namespace ThreadDemo {
       //ct.init01(0);
 
       /* 线程池 */
-      var ct = new ThdPool();
-      ct.init();
-
+      //var ct = new ThdPool();
+      //ct.init();
+      //ct.init01();
 
 
       Console.WriteLine("Done. press enter key to exit");
