@@ -28,6 +28,11 @@ namespace ThreadDemo {
       //ct.init();
       //ct.init01();
 
+      /* 锁 */
+      var ct = new c02lock();
+      ct.tran01();
+      ct.tran03();
+
 
       Console.WriteLine("Done. press enter key to exit");
       Console.ReadLine();
