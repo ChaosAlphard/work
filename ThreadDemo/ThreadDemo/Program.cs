@@ -32,6 +32,8 @@ namespace ThreadDemo {
       var ct = new c02lock();
       ct.tran01();
       ct.tran03();
+      ct.tran04();
+      ct.tran05();
 
 
       Console.WriteLine("Done. press enter key to exit");

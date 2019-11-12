@@ -147,7 +147,7 @@ namespace ThreadDemo.exp02 {
     }
 
     static void listlocker() {
-      lock(_list) {
+      lock (_list) {
         _list.Add("Item 1");
         _list.Add("Item 2");
       }
@@ -206,6 +206,103 @@ namespace ThreadDemo.exp02 {
     /**
      * Note: 性能
      * https://blog.gkarch.com/threading/part2.html#performance
+     */
+
+    /**
+     * Note: 互斥体
+     * https://blog.gkarch.com/threading/part2.html#mutex
+     * 互斥体类似于 C# 的lock，
+     * 不同在于它是可以跨越多个进程工作。
+     * 换句话说，Mutex可以是机器范围（computer-wide）的，
+     * 也可以是程序范围（application-wide）的。
+     * 
+     * PS: 没有竞争的情况下，
+     * 获取并释放Mutex需要几微秒的时间，
+     * 大约比lock慢 50 倍。
+     */
+    public void tran04() {
+      print("Mutex(互斥锁)");
+      /**
+       * 使用Mutex类时，可以调用WaitOne方法来加锁，
+       * 调用ReleaseMutex方法来解锁。
+       * 关闭或销毁Mutex会自动释放锁。
+       * 与lock语句一样，Mutex只能被获得该锁的线程释放。
+       * 
+       * PS: 跨进程Mutex的一种常见的应用就是确保只运行一个程序实例。
+       */
+      using (var mutex = new Mutex(false, "unique MutexID")) {
+        // 可能 其它程序实例正在关闭
+        // 可以等待几秒来让其它实例完成关闭
+        if (!mutex.WaitOne(TimeSpan.FromSeconds(3), false)) {
+          Console.WriteLine("Another App is running. Exit");
+          return;
+        }
+        Run();
+      }
+      /**
+       * 如果在终端服务（Terminal Services）下运行，
+       * 机器范围的Mutex默认仅对于
+       * 运行在相同终端服务器会话的应用程序可见。
+       * 要使其对所有终端服务器会话可见，
+       * 需要在其名字前加上`Global\`。
+       */
+    }
+    public static void Run() {
+      Console.WriteLine("Running...");
+    }
+
+    /**
+     * Note: 信号量
+     * https://blog.gkarch.com/threading/part2.html#semaphore
+     * 信号量：相当于具有一定容量的线程队列。
+     * 一旦装满，就不允许其他线程再进入，这些线程将在外面排队。
+     * 当有一个线程离开时，排在最前的线程便可以进入。
+     * 这种构造最少需要两个参数：队列当前的空位数以及队列的总容量。
+     * 
+     * 容量为 1 的信号量与Mutex和lock类似，
+     * 所不同的是信号量没有“所有者”，
+     * 它是线程无关（thread-agnostic）的。
+     * 任何线程都可以在调用Semaphore上的Release方法，
+     * 而对于Mutex和lock，只有获得锁的线程才可以释放。
+     * 
+     * PS: SemaphoreSlim是 Framework 4.0 加入的轻量级的信号量，
+     * 功能与Semaphore相似，
+     * 不同之处是它对于并行编程的低延迟需求做了优化。
+     * 在传统的多线程方式中也有用，
+     * 因为它支持在等待时指定取消标记 （cancellation token）。
+     * 但它不能跨进程使用。
+     * 在Semaphore上调用WaitOne或Release会产生大概 1 微秒的开销，
+     * 而SemaphoreSlim产生的开销约是其四分之一。
+     */
+    private static SemaphoreSlim _sem = new SemaphoreSlim(3);
+    public void tran05() {
+      print("Semaphore(信号量)");
+      for(int i=0; i<5; i++) {
+        new Thread(Enter).Start(i);
+      }
+    }
+
+    public static void Enter(object o) {
+      print($"{o} wants to enter");
+      // 同时只有3个线程, 超过则排队
+      _sem.Wait();
+      print($"{o} is enter");
+      // 模拟线程操作
+      Thread.Sleep((int)o * 1000);
+      print($"{o} is leave");
+      // 释放
+      _sem.Release();
+    }
+    /**
+     * 如果Sleep语句被替换为密集的磁盘 I/O 操作，
+     * 由于Semaphore限制了过多的并发硬盘活动，
+     * 就可能改善整体性能。
+     * PS: 类似于Mutex，命名的Semaphore也可以跨进程使用。
+     */
+
+    /**
+     * Note: 线程安全
+     * https://blog.gkarch.com/threading/part2.html#thread-safety
      */
 
   } // class
