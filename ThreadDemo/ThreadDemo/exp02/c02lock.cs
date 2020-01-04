@@ -274,10 +274,11 @@ namespace ThreadDemo.exp02 {
      * 在Semaphore上调用WaitOne或Release会产生大概 1 微秒的开销，
      * 而SemaphoreSlim产生的开销约是其四分之一。
      */
+    // 设置总量
     private static SemaphoreSlim _sem = new SemaphoreSlim(3);
     public void tran05() {
       print("Semaphore(信号量)");
-      for(int i=0; i<5; i++) {
+      for(int i=0; i<8; i++) {
         new Thread(Enter).Start(i);
       }
     }

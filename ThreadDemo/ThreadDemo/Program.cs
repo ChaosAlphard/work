@@ -1,5 +1,6 @@
 ﻿using System;
 using ThreadDemo.exp02;
+using ThreadDemo.exp03;
 
 namespace ThreadDemo {
   class Program {
@@ -29,12 +30,15 @@ namespace ThreadDemo {
       //ct.init01();
 
       /* 锁 */
-      var ct = new c02lock();
-      ct.tran01();
-      ct.tran03();
-      ct.tran04();
-      ct.tran05();
+      //var ct = new c02lock();
+      //ct.tran01();
+      //ct.tran03();
+      //ct.tran04();
+      //ct.tran05();
 
+      /* backgroundworker */
+      var e = new c01backgroundworker();
+      e.tran01();
 
       Console.WriteLine("Done. press enter key to exit");
       Console.ReadLine();

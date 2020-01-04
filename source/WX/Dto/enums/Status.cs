@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace WX.Dto {
+    public static class Status {
+        // 通用
+        public static ValueTuple<int, string> GET_DATA_SUCCESS = ValueTuple.Create(200, "OK");
+        public static ValueTuple<int, string> GET_DATA_FAIL = ValueTuple.Create(500, "获取数据失败");
+        public static ValueTuple<int, string> LOST_PARAM = ValueTuple.Create(400, "参数丢失");
+        public static ValueTuple<int, string> NOT_FOUND = ValueTuple.Create(404, "找不到对应的数据");
+
+        // 订阅消息
+        public static ValueTuple<int, string> SEND_SUB_MSG_SUCCESS = ValueTuple.Create(200, "请求成功");
+        public static ValueTuple<int, string> SEND_SUB_MSG_FAIL = ValueTuple.Create(500, "请求失败");
+
+        // SQL
+        public static ValueTuple<int, string> INSERT_SUCCESS = ValueTuple.Create(200, "添加成功");
+        public static ValueTuple<int, string> UPDATE_SUCCESS = ValueTuple.Create(200, "修改成功");
+        public static ValueTuple<int, string> DELETE_SUCCESS = ValueTuple.Create(200, "删除成功");
+        public static ValueTuple<int, string> INSERT_FAIL = ValueTuple.Create(200, "添加失败");
+        public static ValueTuple<int, string> UPDATE_FAIL = ValueTuple.Create(200, "修改失败");
+        public static ValueTuple<int, string> DELETE_FAIL = ValueTuple.Create(200, "删除失败");
+        public static ValueTuple<int, string> SQL_ERROR = ValueTuple.Create(500, "SQL执行异常");
+    }
+}

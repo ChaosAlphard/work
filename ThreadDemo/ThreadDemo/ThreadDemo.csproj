@@ -50,6 +50,7 @@
     <Compile Include="exp01\ThreadNaming.cs" />
     <Compile Include="exp02\c01sync.cs" />
     <Compile Include="exp02\c02lock.cs" />
+    <Compile Include="exp03\c01backgroundworker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
