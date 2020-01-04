@@ -13,15 +13,19 @@ namespace WX.Dto {
 
         // 订阅消息
         public static ValueTuple<int, string> SEND_SUB_MSG_SUCCESS = ValueTuple.Create(200, "请求成功");
-        public static ValueTuple<int, string> SEND_SUB_MSG_FAIL = ValueTuple.Create(500, "请求失败");
+        public static ValueTuple<int, string> SEND_SUB_MSG_FAIL = ValueTuple.Create(510, "请求失败");
 
         // SQL
         public static ValueTuple<int, string> INSERT_SUCCESS = ValueTuple.Create(200, "添加成功");
         public static ValueTuple<int, string> UPDATE_SUCCESS = ValueTuple.Create(200, "修改成功");
         public static ValueTuple<int, string> DELETE_SUCCESS = ValueTuple.Create(200, "删除成功");
-        public static ValueTuple<int, string> INSERT_FAIL = ValueTuple.Create(200, "添加失败");
-        public static ValueTuple<int, string> UPDATE_FAIL = ValueTuple.Create(200, "修改失败");
-        public static ValueTuple<int, string> DELETE_FAIL = ValueTuple.Create(200, "删除失败");
-        public static ValueTuple<int, string> SQL_ERROR = ValueTuple.Create(500, "SQL执行异常");
+        public static ValueTuple<int, string> INSERT_FAIL = ValueTuple.Create(501, "添加失败");
+        public static ValueTuple<int, string> UPDATE_FAIL = ValueTuple.Create(502, "修改失败");
+        public static ValueTuple<int, string> DELETE_FAIL = ValueTuple.Create(503, "删除失败");
+        public static ValueTuple<int, string> SQL_ERROR = ValueTuple.Create(504, "SQL执行异常");
+
+        // 数据转换
+        public static ValueTuple<int, string> DATA_TO_MODEL_FAIL = ValueTuple.Create(505, "数据结果集转换到实体类失败");
+        public static ValueTuple<int, string> DATA_TO_LIST_FAIL = ValueTuple.Create(505, "数据结果集转换到实体列表失败");
     }
 }

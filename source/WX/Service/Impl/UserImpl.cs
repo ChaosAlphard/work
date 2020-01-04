@@ -22,7 +22,7 @@ namespace WX.Service {
                 return VDto<User>.OfData(Status.GET_DATA_SUCCESS, lis);
             } catch(Exception ex) {
                 Console.WriteLine(ex.ToString());
-                return VDto<User>.Of(Status.GET_DATA_FAIL);
+                return VDto<User>.Of(Status.DATA_TO_LIST_FAIL);
             }
         }
 
@@ -36,7 +36,7 @@ namespace WX.Service {
                 return VDto<User>.OfModel(Status.GET_DATA_SUCCESS, usr);
             } catch(Exception ex) {
                 Console.WriteLine(ex.ToString());
-                return VDto<User>.Of(Status.DELETE_FAIL);
+                return VDto<User>.Of(Status.DATA_TO_MODEL_FAIL);
             }
         }
 
