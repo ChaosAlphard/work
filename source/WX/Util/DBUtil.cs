@@ -16,7 +16,7 @@ namespace WX.Util {
          * @Time: 2020.1.2
          */
         public static T data2Model<T>(T model, DataRow row, bool throwErr = true) {
-            // 获取对象的属性
+            // 通过反射获取对象的属性
             PropertyInfo[] list = model.GetType().GetProperties();
             foreach(var item in list) {
                 // 属性名
