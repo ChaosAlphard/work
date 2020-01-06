@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WX.Cache;
 using WX.Dto;
 using WX.Model;
 using WX.Service;
@@ -12,15 +13,22 @@ namespace WX.Controllers {
     [ApiController]
     [Route("wx")]
     public class WXApiController : ControllerBase {
-        private UserService us = new UserImpl();
+        private AccessTokenCache cache = new AccessTokenCache();
 
-        [HttpGet("info.get")]
-        public VDto<User> getUserInfo(string code) {
+        [HttpGet("applyForRepair")]
+        public VDto<User> applyForRepair(string code) {
             if(isInvalid(code)) {
                 return VDto<User>.Of(Status.LOST_PARAM);
             }
-            Console.WriteLine(code);
-            return us.findAll();
+            throw new NotImplementedException();
+        }
+
+        [HttpGet("replyRepair")]
+        public VDto<User> replyRepair(string code) {
+            if(isInvalid(code)) {
+                return VDto<User>.Of(Status.LOST_PARAM);
+            }
+            throw new NotImplementedException();
         }
 
         private static bool isInvalid(string param) {

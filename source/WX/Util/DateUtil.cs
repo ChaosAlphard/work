@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 namespace WX.Util {
     public static class DateUtil {
         public static long getCurrentSecond() {
-            return new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+            return DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        }
+
+        public static string timeSecond2Str(long uninTimeStamp) {
+            return DateTimeOffset
+                .FromUnixTimeSeconds(uninTimeStamp)
+                .ToLocalTime()
+                .ToString();
         }
     }
 }

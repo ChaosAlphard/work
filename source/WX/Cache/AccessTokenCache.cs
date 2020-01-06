@@ -46,7 +46,10 @@ namespace WX.Cache {
             int expires = token.expires_in - 600;   //10*60s 提前10min申请accessToken
             long current = DateUtil.getCurrentSecond();
             this.expiresTime = current + expires;
-            Console.WriteLine($"[{current}]获取Token成功, 过期时间: [{this.expiresTime}]");
+
+            string validTime = DateUtil.timeSecond2Str(current);
+            string invalidTime = DateUtil.timeSecond2Str(this.expiresTime);
+            Console.WriteLine($"[{validTime}]: 获取Token成功, 失效时间: [{invalidTime}]");
         }
 
         /**
@@ -58,6 +61,11 @@ namespace WX.Cache {
                 return false;
             }
             bool isValid = this.expiresTime > DateUtil.getCurrentSecond();
+            if(isValid) {
+                Console.WriteLine("Token有效");
+            } else {
+                Console.WriteLine("Token失效");
+            }
             return isValid;
         }
     }
