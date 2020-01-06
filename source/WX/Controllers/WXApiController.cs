@@ -10,8 +10,8 @@ using WX.Service;
 
 namespace WX.Controllers {
     [ApiController]
-    [Route("user")]
-    public class UserController : ControllerBase {
+    [Route("wx")]
+    public class WXApiController : ControllerBase {
         private UserService us = new UserImpl();
 
         [HttpGet("info.get")]
