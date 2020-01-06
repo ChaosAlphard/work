@@ -16,10 +16,13 @@ namespace WX.Util {
          * @Time: 2020.1.2
          */
         public static T data2Model<T>(T model, DataRow row, bool throwErr = true) {
+            // 获取对象的属性
             PropertyInfo[] list = model.GetType().GetProperties();
             foreach(var item in list) {
+                // 属性名
                 string name = item.Name;
-                string type = item.PropertyType.Name;
+                // 数据类型
+                string type = item.PropertyType?.Name??"null";
                 switch(type) {
                     case "string":
                     case "String": {
@@ -56,6 +59,7 @@ namespace WX.Util {
         public static List<T> data2List<T>(List<T> lis, DataTable table, bool throwErr = true) {
             DataRowCollection rows = table.Rows;
             foreach(DataRow row in rows) {
+                // 创建泛型对象
                 T newT = Activator.CreateInstance<T>();
                 lis.Add(data2Model<T>(newT, row, throwErr));
             }
