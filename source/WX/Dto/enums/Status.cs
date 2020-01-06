@@ -17,9 +17,9 @@ namespace WX.Dto {
 
         // 订阅消息
         public static readonly
-            ValueTuple<int, string> SEND_SUB_MSG_SUCCESS = ValueTuple.Create(200, "请求成功");
+            ValueTuple<int, string> SEND_SUB_MSG_SUCCESS = ValueTuple.Create(200, "发送成功");
         public static readonly
-            ValueTuple<int, string> SEND_SUB_MSG_FAIL = ValueTuple.Create(510, "请求失败");
+            ValueTuple<int, string> SEND_SUB_MSG_FAIL = ValueTuple.Create(510, "发送失败");
 
         // SQL
         public static readonly 
