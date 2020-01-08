@@ -8,13 +8,13 @@ namespace WX.Model {
         public String value { get; set; }
 
         public static Val Of(string value) {
-            return new Val(value);
+            Val val = new Val();
+            val.value = value;
+            return val;
         }
 
-        public Val() { }
-
-        public Val(string value) {
-            this.value = value;
+        public override string ToString() {
+            return $"Val='{value}'";
         }
     }
 }
