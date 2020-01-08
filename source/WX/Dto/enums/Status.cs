@@ -15,6 +15,12 @@ namespace WX.Dto {
         public static readonly
             ValueTuple<int, string> NOT_FOUND = ValueTuple.Create(404, "找不到对应的数据");
 
+        // 用户
+        public static readonly
+            ValueTuple<int, string> UPDATE_USERINFO_SUCCESS = ValueTuple.Create(200, "更新用户信息成功");
+        public static readonly
+            ValueTuple<int, string> UPDATE_USERINFO_FAIL = ValueTuple.Create(502, "更新用户信息失败");
+
         // 订阅消息
         public static readonly
             ValueTuple<int, string> SEND_SUB_MSG_SUCCESS = ValueTuple.Create(200, "发送成功");
