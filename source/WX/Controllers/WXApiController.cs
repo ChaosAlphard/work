@@ -35,18 +35,34 @@ namespace WX.Controllers {
             RemindMsg message = new RemindMsg();
             message.thing1 = Val.Of(msg);
             message.date2 = Val.Of(DateUtil.getCurrentTimeStr());
-            // 返回结果
-            var response = wx.requireSubMsg<SubMsgResult, RemindMsg>(managerOpenid, templateid, message, page);
-
-            return VDto<SubMsgResult>.OfModel(Status.GET_DATA_SUCCESS, response);
+            
+            try {
+                // 返回结果
+                var response = wx.requireSubMsg<SubMsgResult, RemindMsg>(managerOpenid, templateid, message, page);
+                return VDto<SubMsgResult>.OfModel(Status.GET_DATA_SUCCESS, response);
+            } catch(Exception ex) {
+                Console.WriteLine(ex.ToString());
+                return VDto<SubMsgResult>.Of(Status.GET_DATA_FAIL);
+            }
         }
 
         [HttpGet("replyRepair")]
-        public VDto<User> replyRepair(string code) {
-            if(isInvalid(code)) {
-                return VDto<User>.Of(Status.LOST_PARAM);
+        public VDto<SubMsgResult> replyRepair(string openid, string agree, string msg) {
+            if(isInvalid(openid)&&isInvalid(agree)&&isInvalid(msg)) {
+                return VDto<SubMsgResult>.Of(Status.LOST_PARAM);
             }
-            throw new NotImplementedException();
+            string agrMsg = "true".Equals(agree)?"通过":"不通过";
+            string templateid = openid;
+            RemindMsg message = new RemindMsg();
+            message.thing1 = Val.Of(agrMsg);
+            message.date2 = Val.Of(DateUtil.getCurrentTimeStr());
+            try {
+                var response = wx.requireSubMsg<SubMsgResult, RemindMsg>("oqFTn5Yr2QNr_-492HBzh7I_w53Y", templateid, message, null);
+                return VDto<SubMsgResult>.OfModel(Status.GET_DATA_SUCCESS, response);
+            } catch(Exception ex) {
+                Console.WriteLine(ex.ToString());
+                return VDto<SubMsgResult>.Of(Status.GET_DATA_FAIL);
+            }
         }
 
         private static bool isInvalid(string param) {

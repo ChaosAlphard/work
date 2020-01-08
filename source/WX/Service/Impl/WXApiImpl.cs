@@ -26,10 +26,7 @@ namespace WX.Service {
             subMsg.data = msgData;
             subMsg.page = page;
 
-            Console.WriteLine(subMsg.ToString());
-            IRestResponse<T> response = HttpUtil.sendPost<T>(domain, getSubUrl(), subMsg);
-
-            return response.Data;
+            return HttpUtil.sendPost<T>(domain, getSubUrl(), subMsg).Data;
         }
 
         private string getSubUrl() {
