@@ -8,6 +8,11 @@ using WX.Model;
 namespace WX.Service {
     interface UserService {
         /**
+         * 获取用户信息
+         */
+        VDto<String> getUserInfo(string code);
+
+        /**
          * 查找所有User信息
          */
         VDto<User> findAll();
@@ -17,5 +22,10 @@ namespace WX.Service {
          * @Param: openid openid
          */
         VDto<User> findByOpenid(string openid);
+
+        /**
+         * 用户不存在则插入, 存在则更新
+         */
+        VDto<User> updateUser(string openid, string name, string avatar);
     }
 }
