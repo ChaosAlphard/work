@@ -9,11 +9,15 @@ namespace WX.Util {
             return DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         }
 
-        public static string timeSecond2Str(long uninTimeStamp) {
+        public static string getCurrentTimeStr(string format = "yyyy-MM-dd HH:mm:ss") {
+            return timeSecond2Str(getCurrentSecond(), format);
+        }
+
+        public static string timeSecond2Str(long uninTimeStamp, string format = "yyyy-MM-dd HH:mm:ss") {
             return DateTimeOffset
                 .FromUnixTimeSeconds(uninTimeStamp)
                 .ToLocalTime()
-                .ToString();
+                .ToString(format);
         }
     }
 }
