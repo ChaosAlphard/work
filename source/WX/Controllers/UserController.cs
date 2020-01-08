@@ -14,13 +14,22 @@ namespace WX.Controllers {
     public class UserController : ControllerBase {
         private UserService us = new UserImpl();
 
-        [HttpGet("info.get")]
-        public VDto<User> getUserInfo(string code) {
+        [HttpGet("getinfo")]
+        public VDto<string> getUserInfo(string code) {
             if(isInvalid(code)) {
+                return VDto<string>.Of(Status.LOST_PARAM);
+            }
+
+            return us.getUserInfo(code);
+        }
+
+        [HttpGet("updateinfo")]
+        public VDto<User> updateUserInfo(string openid, string name, string avatar) {
+            if(isInvalid(openid)&&isInvalid(name)&&isInvalid(avatar)) {
                 return VDto<User>.Of(Status.LOST_PARAM);
             }
-            Console.WriteLine(code);
-            return us.findAll();
+
+            return us.updateUser(openid, name, avatar);
         }
 
         private static bool isInvalid(string param) {
