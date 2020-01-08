@@ -41,10 +41,13 @@ namespace WX.Dao {
             }
         }
 
-        public int execEdit(string sql) {
+        public int execEdit(string sql, Dictionary<string, object> map) {
             using(var conn = getConn()) {
                 conn.Open();
                 var cmd = new MySqlCommand(sql, conn);
+                foreach(var item in map) {
+                    cmd.Parameters.AddWithValue(item.Key, item.Value);
+                }
                 return cmd.ExecuteNonQuery();
             }
         }
