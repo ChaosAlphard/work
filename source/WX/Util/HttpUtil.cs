@@ -15,10 +15,11 @@ namespace WX.Util {
             return res;
         }
 
-        public static IRestResponse<T> sendPost<T>(string domain, string url) where T : new() {
+        public static IRestResponse<T> sendPost<T>(string domain, string url, Object data) where T : new() {
             var client = new RestClient(domain);
             var req = new RestRequest(url, Method.POST);
-            req.AddHeader("content-type", "application/json");
+            req.AddHeader("content-type", "application/json")
+                .AddJsonBody(data);
 
             IRestResponse<T> res = client.Execute<T>(req);
             return res;
