@@ -16,7 +16,9 @@ namespace WX {
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>()
+                    // 允许使用本机ip访问服务
+                    .UseUrls("http://*:5000");
                 });
     }
 }
