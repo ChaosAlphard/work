@@ -5,6 +5,13 @@ using System.Threading.Tasks;
 
 namespace WX.Service {
     interface WXApiService {
-        string getUserInfo(string code);
+
+        T requireSubMsg<T, O> (
+            String openid,
+            String templateid,
+            O msgData,
+            String page = null
+        ) where T : new()
+        where O : new();
     }
 }
