@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace WX.Model {
-    public class UserInfo {
+    public class UserSession {
         public String session_key { get; set; }
         public String openid { get; set; }
     }
