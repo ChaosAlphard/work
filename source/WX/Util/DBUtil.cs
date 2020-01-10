@@ -30,8 +30,13 @@ namespace WX.Util {
                         break;
                     }
                     case "int":
-                    case "Int": {
+                    case "int32":
+                    case "Int32": {
                         item.SetValue(model, Convert.ToInt32(row[name]));
+                        break;
+                    }
+                    case "DateTime": {
+                        item.SetValue(model, row[name]);
                         break;
                     }
                     default: {

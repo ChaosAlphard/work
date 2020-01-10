@@ -23,13 +23,16 @@ namespace WX.Controllers {
             return us.getUserInfo(code);
         }
 
-        [HttpGet("updateinfo")]
-        public VDto<User> updateUserInfo(string openid, string name, string avatar) {
-            if(isInvalid(openid)&&isInvalid(name)&&isInvalid(avatar)) {
+        [HttpPost("updateinfo")]
+        public VDto<User> updateUserInfo(User usr) {
+            string openid = usr?.openid??"";
+            string name = usr?.name??"";
+            if(isInvalid(openid)||isInvalid(name)) {
                 return VDto<User>.Of(Status.LOST_PARAM);
             }
+            string avatarUrl = isInvalid(usr.avatar)?usr.avatar:"";
 
-            return us.updateUser(openid, name, avatar);
+            return us.updateUser(openid, name, avatarUrl);
         }
 
         private static bool isInvalid(string param) {

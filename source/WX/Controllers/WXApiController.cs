@@ -22,7 +22,7 @@ namespace WX.Controllers {
          */
         [HttpGet("applyForRepair")]
         public VDto<SubMsgResult> applyForRepair(string msg, string from) {
-            if(isInvalid(msg)&&isInvalid(from)) {
+            if(isInvalid(msg)||isInvalid(from)) {
                 return VDto<SubMsgResult>.Of(Status.LOST_PARAM);
             }
             // 管理者的openid
@@ -48,7 +48,7 @@ namespace WX.Controllers {
 
         [HttpGet("replyRepair")]
         public VDto<SubMsgResult> replyRepair(string openid, string agree, string msg) {
-            if(isInvalid(openid)&&isInvalid(agree)&&isInvalid(msg)) {
+            if(isInvalid(openid)||isInvalid(agree)||isInvalid(msg)) {
                 return VDto<SubMsgResult>.Of(Status.LOST_PARAM);
             }
             string agrMsg = "true".Equals(agree)?"通过":"不通过";
