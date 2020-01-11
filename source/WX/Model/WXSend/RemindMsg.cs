@@ -5,13 +5,15 @@ using System.Threading.Tasks;
 
 namespace WX.Model {
     public class RemindMsg {
-        public Val thing1 { get; set; }
-        public Val date2 { get; set; }
+        public Val name1 { get; set; }
+        public Val thing2 { get; set; }
+        public Val time3 { get; set; }
 
         public override string ToString() {
-            return $"RemindMsg[" +
-                $"thing1:'{thing1?.ToString()}'," +
-                $"date2:'{date2?.ToString()}'" +
+            return $"RemindMsg["+
+                $"name1:'{name1?.ToString()}',"+
+                $"thing2:'{thing2?.ToString()}'"+
+                $"time3:'{time3?.ToString()}'"+
                 $"]";
         }
     }

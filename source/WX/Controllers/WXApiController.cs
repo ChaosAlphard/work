@@ -15,30 +15,53 @@ namespace WX.Controllers {
     [Route("wx")]
     public class WXApiController : ControllerBase {
         private WXApiService wx = new WXApiImpl();
+        private RecordService rs = new RecordImpl();
+
+        private static int AGREE = 1;
+        private static int DISAGREE = 2;
 
         /**
          * @param: msg 消息
          * @param: from 发送者的openid
          */
-        [HttpGet("applyForRepair")]
-        public VDto<SubMsgResult> applyForRepair(string msg, string from) {
-            if(isInvalid(msg)||isInvalid(from)) {
+        [HttpPost("applyForRepair")]
+        public VDto<SubMsgResult> applyForRepair(Record record) {
+            // 申请者的openid
+            string openid = record?.openid??"";
+            // 申请者的名称
+            string name = record?.name??"";
+            // 申请信息
+            string message = record?.message??"";
+            if(isInvalid(openid)||isInvalid(name)||isInvalid(message)) {
                 return VDto<SubMsgResult>.Of(Status.LOST_PARAM);
             }
+            // 申请Entity的GUID(作主键)
+            string guid = RandomUtil.getGUID();
+            record.id = guid;
+            record.time = DateUtil.getCurrentTimeStr();
+
+            int i = rs.insertRecord(record);
+            if(i < 0) {
+                return VDto<SubMsgResult>.Of(Status.SQL_ERROR);
+            } else if(i == 0) {
+                return VDto<SubMsgResult>.Of(Status.INSERT_FAIL);
+            }
+
             // 管理者的openid
             string managerOpenid = "oqFTn5Yr2QNr_-492HBzh7I_w53Y";
             // 消息模板的templateid
-            string templateid = "8yJvg3O8n7FReHC8KUDChlFMoxNIDqEAvzGr2o_Vx5o";
+            string templateid = "AHpAmF18906B5wZ_zsB799T8KHi4wPtK4pL0Ro6a4Ew";
             // 点击跳转的page路径
-            string page = $"pages/manage/manage?openid={from}&msg={msg}";
+            string page = $"pages/manage/manage?guid={guid}&openid={openid}&name={name}&msg={message}";
             // 通知消息的Entity
-            RemindMsg message = new RemindMsg();
-            message.thing1 = Val.Of(msg);
-            message.date2 = Val.Of(DateUtil.getCurrentTimeStr());
+            RemindMsg msg = new RemindMsg();
+            msg.name1 = Val.Of(name);
+            msg.thing2 = Val.Of(message);
+            msg.time3 = Val.Of(DateUtil.getCurrentTimeStr());
             
             try {
                 // 返回结果
-                var response = wx.requireSubMsg<SubMsgResult, RemindMsg>(managerOpenid, templateid, message, page);
+                var response = wx.requireSubMsg<SubMsgResult, RemindMsg>(managerOpenid, templateid, msg, page);
                 return VDto<SubMsgResult>.OfModel(Status.GET_DATA_SUCCESS, response);
             } catch(Exception ex) {
                 Console.WriteLine(ex.ToString());
@@ -46,18 +69,26 @@ namespace WX.Controllers {
             }
         }
 
-        [HttpGet("replyRepair")]
-        public VDto<SubMsgResult> replyRepair(string openid, string agree, string msg) {
-            if(isInvalid(openid)||isInvalid(agree)||isInvalid(msg)) {
+        [HttpPost("replyRepair")]
+        public VDto<SubMsgResult> replyRepair(JudgeEntity je) {
+            if(!je.isValid()) {
                 return VDto<SubMsgResult>.Of(Status.LOST_PARAM);
             }
-            string agrMsg = "true".Equals(agree)?"通过":"不通过";
-            string templateid = openid;
+            bool flag = "true".Equals(je.isAgree);
+            int i = rs.updateRecord(je.id, flag ? AGREE : DISAGREE);
+            if(i < 0) {
+                return VDto<SubMsgResult>.Of(Status.SQL_ERROR);
+            } else if(i == 0) {
+                return VDto<SubMsgResult>.Of(Status.UPDATE_FAIL);
+            }
+
+            string templateid = "AHpAmF18906B5wZ_zsB799T8KHi4wPtK4pL0Ro6a4Ew";
             RemindMsg message = new RemindMsg();
-            message.thing1 = Val.Of(agrMsg);
-            message.date2 = Val.Of(DateUtil.getCurrentTimeStr());
+            message.name1 = Val.Of("Alphard");
+            message.thing2 = Val.Of(flag?"通过":"不通过");
+            message.time3 = Val.Of(DateUtil.getCurrentTimeStr());
             try {
-                var response = wx.requireSubMsg<SubMsgResult, RemindMsg>("oqFTn5Yr2QNr_-492HBzh7I_w53Y", templateid, message, null);
+                var response = wx.requireSubMsg<SubMsgResult, RemindMsg>(je.openid, templateid, message, null);
                 return VDto<SubMsgResult>.OfModel(Status.GET_DATA_SUCCESS, response);
             } catch(Exception ex) {
                 Console.WriteLine(ex.ToString());

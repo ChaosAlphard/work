@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WX.Model {
     public class Record {
-        public Int32 id { get; set; }
+        public String id { get; set; }
         public String openid { get; set; }
         public String name { get; set; }
         public String message { get; set; }
@@ -14,6 +14,7 @@ namespace WX.Model {
 
         public bool isValid() {
             return (
+                id!=null&&
                 openid!=null&&
                 name!=null&&
                 message!=null

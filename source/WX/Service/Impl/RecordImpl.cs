@@ -39,8 +39,24 @@ namespace WX.Service {
             }
         }
 
-        public VDto<Record> insertRecord(Record record) {
-            throw new NotImplementedException();
+        public int insertRecord(Record record) {
+            if(!record.isValid()) {
+                return 0;
+            }
+            return rd.insertRecord(
+                    record.id,
+                    record.openid,
+                    record.name,
+                    record.message,
+                    record.time
+                );
+        }
+
+        public int updateRecord(string id, int judge) {
+            if(id==null||judge==0) {
+                return 0;
+            }
+            return rd.updateRecord(id, judge);
         }
     }
 }
