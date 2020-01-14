@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -16,10 +17,11 @@ namespace WX.Service {
 
         private readonly string domain = "https://api.weixin.qq.com";
 
-        public VDto<String> getUserInfo(string code) {
+        public VDto<String> getSession(string code) {
             string url = $"/sns/jscode2session?{idAndSecret}&js_code={code}&grant_type=authorization_code";
             try {
                 string res = HttpUtil.stringResult(domain, url).Content;
+                UserSession user = JsonConvert.DeserializeObject<UserSession>(res);
                 return VDto<String>.OfModel(Status.GET_DATA_SUCCESS, res);
             } catch(Exception ex) {
                 Console.WriteLine(ex.ToString());

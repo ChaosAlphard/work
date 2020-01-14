@@ -14,13 +14,13 @@ namespace WX.Controllers {
     public class UserController : ControllerBase {
         private UserService us = new UserImpl();
 
-        [HttpGet("getinfo")]
-        public VDto<string> getUserInfo(string code) {
+        [HttpGet("getsession")]
+        public VDto<string> getSession(string code) {
             if(isInvalid(code)) {
                 return VDto<string>.Of(Status.LOST_PARAM);
             }
 
-            return us.getUserInfo(code);
+            return us.getSession(code);
         }
 
         [HttpPost("updateinfo")]

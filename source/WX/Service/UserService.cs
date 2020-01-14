@@ -8,9 +8,9 @@ using WX.Model;
 namespace WX.Service {
     interface UserService {
         /**
-         * 获取用户信息
+         * 获取用户Openid
          */
-        VDto<String> getUserInfo(string code);
+        VDto<String> getSession(string code);
 
         /**
          * 查找所有User信息
