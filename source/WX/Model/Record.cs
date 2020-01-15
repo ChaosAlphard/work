@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace WX.Model {
+    // 申请记录
     public class Record {
         public String id { get; set; }
         public String openid { get; set; }

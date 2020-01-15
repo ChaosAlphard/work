@@ -29,7 +29,7 @@ namespace WX.Dao {
         }
 
         public DataTable findByGuid(string guid) {
-            string sql = $"select id,openid,name,message,time,judge from record where guid='{guid}' limit 1";
+            string sql = $"select id,openid,name,message,time,judge from record where id='{guid}' limit 1";
             try {
                 return dao.dataAdapter(sql);
             } catch(Exception ex) {

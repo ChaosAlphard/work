@@ -30,6 +30,10 @@ namespace WX.Service {
             }
         }
 
+        // 大致流程基本一致:
+        // 从dao中查到dataTable数据集，
+        // 判断是否为null, 
+        // 不为null则转换为实体类并返回
         public VDto<User> findAll() {
             var res = ud.queryAll();
             // res为null 说明dao方法中抛异常

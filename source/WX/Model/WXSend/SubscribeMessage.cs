@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace WX.Model {
+    // SubMsg发送Entity
     public class SubscribeMessage<T> {
         public String touser { get; set; }
         public String template_id { get; set; }

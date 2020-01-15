@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace WX.Model {
+    // 订阅消息
     public class RemindMsg {
         public Val name1 { get; set; }
         public Val thing2 { get; set; }
