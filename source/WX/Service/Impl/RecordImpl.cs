@@ -39,6 +39,20 @@ namespace WX.Service {
             }
         }
 
+        public VDto<Record> findByGuid(string guid) {
+            var res = rd.findByGuid(guid);
+            if(res == null) {
+                return VDto<Record>.Of(Status.SQL_ERROR);
+            }
+            try {
+                var data = DBUtil.data2Model(new Record(), res.Rows[0]);
+                return VDto<Record>.OfModel(Status.GET_DATA_SUCCESS, data);
+            } catch(Exception ex) {
+                Console.WriteLine(ex.ToString());
+                return VDto<Record>.Of(Status.DATA_TO_MODEL_FAIL);
+            }
+        }
+
         public int insertRecord(Record record) {
             if(!record.isValid()) {
                 return 0;

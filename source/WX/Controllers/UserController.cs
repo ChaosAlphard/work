@@ -14,6 +14,7 @@ namespace WX.Controllers {
     public class UserController : ControllerBase {
         private UserService us = new UserImpl();
 
+        // 获取用户openid和sessionkey
         [HttpGet("getsession")]
         public VDto<UserSession> getSession(string code) {
             if(isInvalid(code)) {
@@ -23,6 +24,7 @@ namespace WX.Controllers {
             return us.getSession(code);
         }
 
+        // 更新或新增用户信息
         [HttpPost("updateinfo")]
         public VDto<User> updateUserInfo(User usr) {
             string openid = usr?.openid??"";
@@ -35,6 +37,7 @@ namespace WX.Controllers {
             return us.updateUser(openid, name, avatarUrl);
         }
 
+        // 获取用户权限
         [HttpGet("findlevel")]
         public VDto<Int32> findLevel(string openid) {
             if(isInvalid(openid)) {

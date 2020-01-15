@@ -12,7 +12,9 @@ namespace WX.Cache {
         private static string domain = "https://api.weixin.qq.com";
         private static string url = $"/cgi-bin/token?grant_type=client_credential&{idAndSecret}";
 
+        // token 临时凭证，获取订阅信息需要
         private static string accessToken = null;
+        // 过期时间 单位秒s, 通常为7200
         private static long expiresTime = 0;
 
         /**

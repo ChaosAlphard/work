@@ -40,6 +40,7 @@ namespace WX.Controllers {
             record.id = guid;
             record.time = DateUtil.getCurrentTimeStr();
 
+            // 插入申请记录
             int i = rs.insertRecord(record);
             if(i < 0) {
                 return VDto<SubMsgResult>.Of(Status.SQL_ERROR);
@@ -47,13 +48,24 @@ namespace WX.Controllers {
                 return VDto<SubMsgResult>.Of(Status.INSERT_FAIL);
             }
 
+            // 插入成功后下发通知
             // 管理者的openid
             string managerOpenid = "oqFTn5Yr2QNr_-492HBzh7I_w53Y";
-            // 消息模板的templateid
+            // 消息模板的templateid, 前端申请订阅的templateid要和这个一致
             string templateid = "AHpAmF18906B5wZ_zsB799T8KHi4wPtK4pL0Ro6a4Ew";
             // 点击跳转的page路径
-            string page = $"pages/manage/manage?guid={guid}&openid={openid}&name={name}&msg={message}";
+            string page = $"pages/manage/manage?id={guid}";
             // 通知消息的Entity
+            // 微信要求格式为
+            // {
+            //   name1: {
+            //     value: "名字"
+            //   }, 
+            //   thing2: {
+            //     value: "消息"
+            //   }
+            // }
+            // 故用Val.Of嵌套一层
             RemindMsg msg = new RemindMsg();
             msg.name1 = Val.Of(name);
             msg.thing2 = Val.Of(message);
@@ -74,7 +86,9 @@ namespace WX.Controllers {
             if(!je.isValid()) {
                 return VDto<SubMsgResult>.Of(Status.LOST_PARAM);
             }
+            // 是否同意
             bool flag = "true".Equals(je.isAgree);
+            // 更新数据库
             int i = rs.updateRecord(je.id, flag ? AGREE : DISAGREE);
             if(i < 0) {
                 return VDto<SubMsgResult>.Of(Status.SQL_ERROR);
@@ -82,6 +96,7 @@ namespace WX.Controllers {
                 return VDto<SubMsgResult>.Of(Status.UPDATE_FAIL);
             }
 
+            // 更新成功后下发通知
             string templateid = "AHpAmF18906B5wZ_zsB799T8KHi4wPtK4pL0Ro6a4Ew";
             RemindMsg message = new RemindMsg();
             message.name1 = Val.Of("Alphard");

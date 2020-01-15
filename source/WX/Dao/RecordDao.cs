@@ -28,6 +28,16 @@ namespace WX.Dao {
             }
         }
 
+        public DataTable findByGuid(string guid) {
+            string sql = $"select id,openid,name,message,time,judge from record where guid='{guid}' limit 1";
+            try {
+                return dao.dataAdapter(sql);
+            } catch(Exception ex) {
+                Console.WriteLine(ex.ToString());
+                return null;
+            }
+        }
+
         public int insertRecord(string id, string openid, string name, string message, string time) {
             string sql = "insert into record(id,openid,name,message,time,judge) value(@id,@openid,@name,@message,@time,0)";
             Dictionary<string, object> map = new Dictionary<string, object>();

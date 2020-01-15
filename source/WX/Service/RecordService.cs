@@ -11,6 +11,8 @@ namespace WX.Service {
 
         VDto<Record> findByOpenid(string openid);
 
+        VDto<Record> findByGuid(string guid);
+
         int insertRecord(Record record);
 
         int updateRecord(string id, int judge);

@@ -20,6 +20,7 @@ namespace WX.Service {
         public VDto<UserSession> getSession(string code) {
             string url = $"/sns/jscode2session?{idAndSecret}&js_code={code}&grant_type=authorization_code";
             try {
+                // 此Api返回string, 所以要用string接收后再转为json
                 string res = HttpUtil.stringResult(domain, url).Content;
                 UserSession user = JsonConvert.DeserializeObject<UserSession>(res);
                 return VDto<UserSession>.OfModel(Status.GET_DATA_SUCCESS, user);
@@ -31,10 +32,12 @@ namespace WX.Service {
 
         public VDto<User> findAll() {
             var res = ud.queryAll();
+            // res为null 说明dao方法中抛异常
             if(res == null) {
                 return VDto<User>.Of(Status.SQL_ERROR);
             }
             try {
+                // 捕获DataTable转EntityList的异常
                 var lis = DBUtil.data2List(new List<User>(), res);
                 return VDto<User>.OfData(Status.GET_DATA_SUCCESS, lis);
             } catch(Exception ex) {
@@ -80,17 +83,20 @@ namespace WX.Service {
         public VDto<User> updateUser(string openid, string name, string avatar) {
             User usr;
             try {
+                // 先查询用户
                 usr = findUser(openid);
             } catch(Exception ex) {
                 Console.WriteLine(ex.ToString());
                 return VDto<User>.Of(Status.DATA_TO_MODEL_FAIL);
             }
             int res;
+            // 不存在则新增，存在则更新
             if(usr == null) {
                 res = ud.insertUser(openid, name, avatar);
             } else {
                 res = ud.updateUser(openid, name, avatar);
             }
+            // res代表受影响行数, 为-1 说明dao抛异常, 为0说明没有更新到
             if(res < 0) {
                 return VDto<User>.Of(Status.SQL_ERROR);
             } else if(res == 0) {
