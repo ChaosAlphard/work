@@ -26,17 +26,32 @@ namespace WX.Util {
                 switch(type) {
                     case "string":
                     case "String": {
-                        item.SetValue(model, row[name]?.ToString()??"");
+                        try {
+                            item.SetValue(model, row[name]?.ToString()??"");
+                        } catch(Exception ex) {
+                            Console.WriteLine($"DBUtil: {ex.Message}");
+                            item.SetValue(model, null);
+                        }
                         break;
                     }
                     case "int":
                     case "int32":
                     case "Int32": {
-                        item.SetValue(model, Convert.ToInt32(row[name]));
+                        try {
+                            item.SetValue(model, Convert.ToInt32(row[name]));
+                        } catch(Exception ex) {
+                            Console.WriteLine($"DBUtil: {ex.Message}");
+                            item.SetValue(model, 0);
+                        }
                         break;
                     }
                     case "DateTime": {
-                        item.SetValue(model, row[name]);
+                        try {
+                            item.SetValue(model, row[name]);
+                        } catch(Exception ex) {
+                            Console.WriteLine($"DBUtil: {ex.Message}");
+                            item.SetValue(model, null);
+                        }
                         break;
                     }
                     default: {

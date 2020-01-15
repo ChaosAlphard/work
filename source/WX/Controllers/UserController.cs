@@ -15,9 +15,9 @@ namespace WX.Controllers {
         private UserService us = new UserImpl();
 
         [HttpGet("getsession")]
-        public VDto<string> getSession(string code) {
+        public VDto<UserSession> getSession(string code) {
             if(isInvalid(code)) {
-                return VDto<string>.Of(Status.LOST_PARAM);
+                return VDto<UserSession>.Of(Status.LOST_PARAM);
             }
 
             return us.getSession(code);
@@ -33,6 +33,14 @@ namespace WX.Controllers {
             string avatarUrl = isInvalid(usr.avatar)?usr.avatar:"";
 
             return us.updateUser(openid, name, avatarUrl);
+        }
+
+        [HttpGet("findlevel")]
+        public VDto<Int32> findLevel(string openid) {
+            if(isInvalid(openid)) {
+                return VDto<Int32>.Of(Status.LOST_PARAM);
+            }
+            return us.findLevelByOpenid(openid);
         }
 
         private static bool isInvalid(string param) {

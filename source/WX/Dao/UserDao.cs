@@ -10,7 +10,7 @@ namespace WX.Dao {
         private Conn dao = new Conn();
 
         public DataTable queryAll() {
-            string sql = "select openid,name,avatar,unionid from user";
+            string sql = "select openid,name,avatar,unionid,level from user";
             try {
                 return dao.dataAdapter(sql);
             } catch(Exception ex) {
@@ -20,7 +20,7 @@ namespace WX.Dao {
         }
 
         public DataTable findByOpenid(string openid) {
-            string sql = $"select openid,name,avatar,unionid from user where openid='{openid}' limit 1";
+            string sql = $"select openid,name,avatar,unionid,level from user where openid='{openid}' limit 1";
             try {
                 return dao.dataAdapter(sql);
             } catch(Exception ex) {
@@ -29,8 +29,18 @@ namespace WX.Dao {
             }
         }
 
+        public DataTable findLevelByOpenid(string openid) {
+            string sql = $"select level from user where openid='{openid}' limit 1";
+            try {
+                return dao.dataAdapter(sql);
+            } catch(Exception ex) {
+                Console.WriteLine(ex.StackTrace);
+                return null;
+            }
+        }
+
         public int insertUser(string openid, string name, string avatar) {
-            string sql = "insert into user(name, openid, avatar) value(@name, @openid, @avatar)";
+            string sql = "insert into user(name, openid, avatar, level) value(@name, @openid, @avatar, 1)";
             Dictionary<string, object> map = new Dictionary<string, object>();
             map.Add("name", name);
             map.Add("openid", openid);

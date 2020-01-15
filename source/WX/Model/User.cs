@@ -9,5 +9,6 @@ namespace WX.Model {
         public String name { get; set; }
         public String avatar { get; set; }
         public String unionid { get; set; }
+        public Int32 level { get; set; }
     }
 }

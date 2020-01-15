@@ -10,7 +10,7 @@ namespace WX.Service {
         /**
          * 获取用户Openid
          */
-        VDto<String> getSession(string code);
+        VDto<UserSession> getSession(string code);
 
         /**
          * 查找所有User信息
@@ -22,6 +22,8 @@ namespace WX.Service {
          * @Param: openid openid
          */
         VDto<User> findByOpenid(string openid);
+
+        VDto<Int32> findLevelByOpenid(string openid);
 
         /**
          * 用户不存在则插入, 存在则更新
